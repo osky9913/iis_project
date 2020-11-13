@@ -28,3 +28,12 @@ export const api = {
       .then((res) => res.data)
       .catch((err) => console.error(err)),
 };
+
+export const apiAll = axios
+  .all([
+    api.getFestival(),
+    api.getInterpret(),
+    api.getStage(),
+    api.getReservation(),
+  ])
+  .then((respones) => console.log(respones));
