@@ -1,8 +1,12 @@
 import axios from "axios";
-import { endpoints, baseUrl, headers } from "./apiConstants";
+import { endpoints, url, headers } from "./apiConstants";
+import * as https from "https";
 
-const axiosInstance = axios.create({
-  baseUrl: baseUrl,
+export const axiosInstance = axios.create({
+  baseURL: url,
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false,
+  }),
   headers: headers.basic,
 });
 
@@ -29,11 +33,13 @@ export const api = {
       .catch((err) => console.error(err)),
 };
 
-export const apiAll = axios
-  .all([
-    api.getFestival(),
-    api.getInterpret(),
-    api.getStage(),
-    api.getReservation(),
-  ])
-  .then((respones) => console.log(respones));
+export const apiAll = () => {
+  axios
+    .all([
+      api.getFestival(),
+      api.getInterpret(),
+      api.getStage(),
+      api.getReservation(),
+    ])
+    .then((respones) => console.log(respones));
+};

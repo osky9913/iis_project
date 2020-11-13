@@ -1,4 +1,4 @@
-export const baseUrl = "https://localhost:44354/api/";
+export const url = "https://localhost:44354/api/";
 
 export const endpoints = {
   festival: "Festival",
@@ -12,5 +12,6 @@ export const endpoints = {
 export const headers = {
   basic: {
     "Content-Type": "application/octet-stream",
+    "Access-Control-Allow-Origin": "*",
   },
 };
