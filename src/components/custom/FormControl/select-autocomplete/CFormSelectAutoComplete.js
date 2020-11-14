@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import Select, { createFilter } from "react-select";
-import { StyledFormControl, StyledAutoSelectInputLabel } from "../../styles";
+import {
+  StyledFormControl,
+  StyledAutoSelectInputLabel,
+} from "../styles/CustomStyles";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import "./index.css";
 

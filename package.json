@@ -14,6 +14,8 @@
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.11.1",
     "react-scripts": "4.0.0",
+    "react-select": "^3.1.0",
+    "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4",
     "yup": "^0.29.3"
   },
@@ -36,6 +38,8 @@
     ]
   },
   "devDependencies": {
+    "@date-io/moment": "^2.10.6",
+    "@material-ui/pickers": "^3.2.10",
     "eslint": "^7.13.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.21.5"

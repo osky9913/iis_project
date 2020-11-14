@@ -3,7 +3,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { StyledInputLabel } from "../../styles";
+import { StyledInputLabel } from "../styles/CustomStyles";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
 const CMuiSelect = (props) => {
