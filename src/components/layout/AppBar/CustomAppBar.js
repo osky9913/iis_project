@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ButtonAppBar() {
   const classes = useStyles();
   const [openLoginDialog, setOpenLoginDialog] = React.useState(false);
+
   const handleClickOpen = () => {
     setOpenLoginDialog(true);
   };
