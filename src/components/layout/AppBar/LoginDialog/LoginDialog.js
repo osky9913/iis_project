@@ -6,12 +6,24 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import LoginDialogForm from "./LoginDialogForm";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validationSchema } from "./ValidationSchema";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function AlertDialogSlide(props) {
+  const methods = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+  const { handleSubmit, errors, control } = methods;
+
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
+
   return (
     <Dialog
       open={props.openLoginDialog}
@@ -21,21 +33,29 @@ export default function AlertDialogSlide(props) {
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="alert-dialog-slide-title">{"Prihlasenie"}</DialogTitle>
+      <DialogTitle id="alert-dialog-slide-title">{"Prihlásenie"}</DialogTitle>
       <DialogContent>
-        <LoginDialogForm />
+        <LoginDialogForm
+          errors={errors}
+          control={control}
+          methods={methods}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+        />
       </DialogContent>
 
       <DialogActions>
         <Button onClick={props.handleClose} color="primary">
           Zrušiť
         </Button>
-        <Button onClick={props.handleClose} color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit(onSubmit)}
+        >
           Prihlásiť
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
-
-AlertDialogSlide.propTypes;

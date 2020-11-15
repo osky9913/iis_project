@@ -34,6 +34,7 @@ export const api = {
 };
 
 export const apiAll = () => {
+  let responses = [];
   axios
     .all([
       api.getFestival(),
@@ -41,5 +42,8 @@ export const apiAll = () => {
       api.getStage(),
       api.getReservation(),
     ])
-    .then((respones) => console.log(respones));
+    .then((respond) => {
+      responses.push(respond);
+    });
+  return responses;
 };

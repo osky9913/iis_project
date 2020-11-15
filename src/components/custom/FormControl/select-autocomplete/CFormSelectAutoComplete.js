@@ -123,4 +123,4 @@ function CFormSelectAutoComplete(props) {
   );
 }
 
-export default FormSelectAutoComplete;
+export default CFormSelectAutoComplete;

@@ -35,13 +35,13 @@ const CMuiSelect = (props) => {
   );
 };
 
-function FormSelect(props) {
+function CFormSelect(props) {
   const { control } = useFormContext();
   const { name, label } = props;
   return (
     <React.Fragment>
       <Controller
-        as={MuiSelect}
+        as={CMuiSelect}
         control={control}
         name={name}
         label={label}
@@ -52,4 +52,4 @@ function FormSelect(props) {
   );
 }
 
-export default FormSelect;
+export default CFormSelect;
