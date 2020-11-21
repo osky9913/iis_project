@@ -13,8 +13,8 @@ export default function Dashboard() {
 
   return (
     <Box>
-      <AppBar />
-      <FestivalDashboard festivals={festivals} />
+        <AppBar/>
+        <FestivalDashboard festivals={festivals}/>
     </Box>
   );
 }
