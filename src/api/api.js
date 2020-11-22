@@ -31,6 +31,13 @@ export const api = {
       .get(endpoints.stage)
       .then((res) => res.data)
       .catch((err) => console.error(err)),
+  login: (data) => axiosInstance.post(endpoints.userAuthenticate, data),
+  isValid: (token) => {
+    axiosInstance.defaults.headers.common["Authorization"] = "Bearer " + token;
+    return axiosInstance.get(endpoints.validate);
+  },
+  deleteTokenFromHeader: () =>
+    (axiosInstance.defaults.headers.common["Authorization"] = ""),
 };
 
 export const apiAll = () => {

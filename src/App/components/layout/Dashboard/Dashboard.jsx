@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "../AppBar/CustomAppBar";
-import { api } from "../../../api/api";
+import { api } from "../../../../api/api";
 import Box from "@material-ui/core/Box";
 import { FestivalDashboard } from "../FestivalDashboard/FestivalDashboard";
 

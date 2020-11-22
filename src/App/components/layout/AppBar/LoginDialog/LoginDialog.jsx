@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,6 +9,9 @@ import LoginDialogForm from "./LoginDialogForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./ValidationSchema";
+import { api } from "../../../../../api/api";
+import { userService } from "../../../../../services";
+import UserContext from "../../../../../context/UserContext";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -19,9 +22,11 @@ export default function AlertDialogSlide(props) {
     resolver: yupResolver(validationSchema),
   });
   const { handleSubmit, errors, control } = methods;
+  const { user, setUser } = useContext(UserContext);
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+    console.log(data);
+    userService.login(data, setUser);
   };
 
   return (
