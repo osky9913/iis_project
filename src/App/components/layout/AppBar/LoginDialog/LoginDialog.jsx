@@ -24,9 +24,6 @@ export default function AlertDialogSlide(props) {
   const { setUser } = useContext(UserContext);
 
   const onSubmit = (data) => {
-    console.log("hello world");
-
-    console.log(data);
     userService.login(data, setUser);
     props.handleClose();
   };

@@ -104,6 +104,7 @@ export default function CustomAppBar() {
           )}
         </Toolbar>
       </AppBar>
+
       <LoginDialog
         handleClose={handleLoginClose}
         openLoginDialog={openLoginDialog}
