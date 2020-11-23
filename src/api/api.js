@@ -32,6 +32,9 @@ export const api = {
       .then((res) => res.data)
       .catch((err) => console.error(err)),
   login: (data) => axiosInstance.post(endpoints.userAuthenticate, data),
+  logout: () => {
+    localStorage.clear();
+  },
   isValid: (token) => {
     axiosInstance.defaults.headers.common["Authorization"] = "Bearer " + token;
     return axiosInstance.get(endpoints.validate);

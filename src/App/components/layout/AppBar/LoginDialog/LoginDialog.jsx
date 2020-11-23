@@ -9,7 +9,6 @@ import LoginDialogForm from "./LoginDialogForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./ValidationSchema";
-import { api } from "../../../../../api/api";
 import { userService } from "../../../../../services";
 import UserContext from "../../../../../context/UserContext";
 
@@ -22,11 +21,14 @@ export default function AlertDialogSlide(props) {
     resolver: yupResolver(validationSchema),
   });
   const { handleSubmit, errors, control } = methods;
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const onSubmit = (data) => {
+    console.log("hello world");
+
     console.log(data);
     userService.login(data, setUser);
+    props.handleClose();
   };
 
   return (
@@ -53,6 +55,7 @@ export default function AlertDialogSlide(props) {
         <Button onClick={props.handleClose} color="primary">
           Zrušiť
         </Button>
+
         <Button
           variant="contained"
           color="primary"
