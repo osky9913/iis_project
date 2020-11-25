@@ -31,6 +31,15 @@ export default function LogoutDialog(props) {
         <MenuItem
           onClick={() => {
             handleLogoutClose();
+            history.push("/settings");
+          }}
+        >
+          Settings
+        </MenuItem>
+
+        <MenuItem
+          onClick={() => {
+            handleLogoutClose();
             api.logout();
             api.deleteTokenFromHeader();
             setUser({ token: undefined, user: undefined });
