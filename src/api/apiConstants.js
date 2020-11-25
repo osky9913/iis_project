@@ -7,11 +7,12 @@ export const endpoints = {
   stage: "Stage",
   user: "User",
   userAuthenticate: "User/authenticate/",
+  validate: "user/validate",
 };
 
 export const headers = {
   basic: {
-    "Content-Type": "application/octet-stream",
+    "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
   },
 };
