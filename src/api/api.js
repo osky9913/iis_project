@@ -41,6 +41,9 @@ export const api = {
   },
   deleteTokenFromHeader: () =>
     (axiosInstance.defaults.headers.common["Authorization"] = ""),
+  getFestivalByID: (ID) =>
+      axiosInstance
+          .get(endpoints.festival + "/" + ID),
 };
 
 export const apiAll = () => {
