@@ -10,6 +10,7 @@ import { createBrowserHistory } from "history";
 import Box from "@material-ui/core/Box";
 import AppBar from "./components/layout/AppBar/CustomAppBar";
 import { FestivalDashboard } from "./components/pages/FestivalDashboard/FestivalDashboard";
+import Festival from "./components/pages/FestivalPage/Festival";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -68,6 +69,20 @@ const App = () => {
               <Route exact path="/">
                 <FestivalDashboard />
               </Route>
+
+              <Route exact path="/festivals">
+                <FestivalDashboard />
+              </Route>
+              <Route
+                exact
+                path={"/festival-:festivalId"}
+                children={<Festival />}
+              />
+
+              <Route exact path="/interprets">
+                <p> helllo world</p>
+              </Route>
+
               <Route exact path="/register">
                 <div>"hello world register"</div>
               </Route>
@@ -83,10 +98,6 @@ const App = () => {
                     </div>
                   </main>
                 </div>
-              </Route>
-
-              <Route exact path="/interprets">
-                <p> helllo world</p>
               </Route>
             </Switch>
           </Box>
