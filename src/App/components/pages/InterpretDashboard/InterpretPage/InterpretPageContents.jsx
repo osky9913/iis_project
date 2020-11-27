@@ -36,8 +36,9 @@ const InterpretPageContents = () => {
     return (
         <div className={classes.root}>
             <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
-                <Link color="inherit" onClick={() => console.log("FirstInterprepBreadcrumbButt")} className={classes.link}>
-                    <PeopleIcon className={classes.icon} />
+                <Link color="inherit" onClick={() => console.log("FirstInterprepBreadcrumbButt")}
+                      className={classes.link}>
+                    <PeopleIcon className={classes.icon}/>
                     Material-UI
                 </Link>
                 <Link
@@ -45,11 +46,11 @@ const InterpretPageContents = () => {
                     onClick={() => console.log("SecondInterprepBreadcrumbButt")}
                     className={classes.link}
                 >
-                    <GrainIcon className={classes.icon} />
+                    <GrainIcon className={classes.icon}/>
                     Core
                 </Link>
                 <Typography color="textPrimary" className={classes.link}>
-                    <PlaceIcon className={classes.icon} />
+                    <PlaceIcon className={classes.icon}/>
                     Breadcrumb
                 </Typography>
             </Breadcrumbs>
