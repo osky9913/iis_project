@@ -11,6 +11,8 @@ import Box from "@material-ui/core/Box";
 import AppBar from "./components/layout/AppBar/CustomAppBar";
 import { FestivalDashboard } from "./components/pages/FestivalDashboard/FestivalDashboard";
 import Festival from "./components/pages/FestivalPage/Festival";
+import {InterpretDashboard} from "./components/pages/InterpretDashboard/InterpretDashboard";
+import Interpret from "./components/pages/InterpretDashboard/InterpretPage/Interpret";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -80,8 +82,14 @@ const App = () => {
               />
 
               <Route exact path="/interprets">
-                <p> helllo world</p>
+                <InterpretDashboard />
               </Route>
+
+              <Route
+                  exact
+                  path={"/interpret-:interpretId"}
+                  children={<Interpret />}
+              />
 
               <Route exact path="/register">
                 <div>"hello world register"</div>

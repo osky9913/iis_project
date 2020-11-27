@@ -44,6 +44,9 @@ export const api = {
   getFestivalByID: (ID) =>
       axiosInstance
           .get(endpoints.festival + "/" + ID),
+  getInterpretByID: (ID) =>
+      axiosInstance
+          .get(endpoints.interpret + "/" + ID),
 };
 
 export const apiAll = () => {
