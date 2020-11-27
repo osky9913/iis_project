@@ -2,9 +2,9 @@ import Container from "@material-ui/core/Container";
 import React, {useEffect, useState} from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useParams} from "react-router-dom";
-import InterpretPageContent from "./InterpretPageContent";
 import Paper from "@material-ui/core/Paper";
 import {api} from "../../../../../api/api";
+import InterpretPageContents from "./InterpretPageContents";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -20,13 +20,14 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
     },
     page: {
-        height: "500px",
+        height: "auto",
+        padding: theme.spacing(3),
     },
 }));
 
 const Interpret = () => {
     const classes = useStyles();
-    const [interpretDialogData, setInterpretDialogData] = useState([] | undefined);
+    const [interpretData, setInterpretDialogData] = useState([] | undefined);
 
     useEffect(() => {
         api.getInterpretByID(interpretId).then((response) => {
@@ -41,10 +42,10 @@ const Interpret = () => {
         <main className={classes.content}>
             <div className={classes.toolbar}/>
             <div style={{padding: "20px"}}>
-                <Container maxWidth="lg">
+                <Container maxWidth="md">
                     <Paper className={classes.page}>
-                        <h1>{interpretDialogData["name"]}</h1>
-                        <InterpretPageContent/>
+                        <h1 style={{ textAlign:"center" }}>{interpretData["name"]}</h1>
+                        <InterpretPageContents />
                     </Paper>
                 </Container>
             </div>

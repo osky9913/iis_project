@@ -20,23 +20,32 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   page: {
-    height: "500px",
+    height: "auto",
+    padding: theme.spacing(3),
+  },
+  container: {
+    margin: 4,
   },
 }));
 
 const Festival = () => {
   const classes = useStyles();
-  const [festivalDialogData, setFestivalDialogData] = useState([] | undefined);
+  const [festivalData, setFestivalData] = useState([] | undefined);
   const [
-    festivalDialogDataListOfInterprets,
-    setFestivalDialogDataListOfInterprets,
+    festivalDataListOfInterprets,
+    setFestivalDataListOfInterprets,
+  ] = useState([]);
+  const [
+    festivalDataListOfStages,
+    setFestivalDataListOfStages,
   ] = useState([]);
 
   useEffect(() => {
     api.getFestivalByID(festivalId).then((response) => {
       const data = response.data;
-      setFestivalDialogData(data);
-      setFestivalDialogDataListOfInterprets(data["festivalInterpret"]);
+      setFestivalData(data);
+      setFestivalDataListOfInterprets(data["festivalInterpret"]);
+      setFestivalDataListOfStages(data["stageList"]);
     });
   }, []);
 
@@ -45,13 +54,19 @@ const Festival = () => {
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
-      <div style={{ padding: "20px" }}>
-        <Container maxWidth="lg">
+      <div style={{ padding: "20px"}}>
+        <Container maxWidth="md">
           <Paper className={classes.page}>
-            <h1>{festivalDialogData["name"]}</h1>
+            <h1 style={{ textAlign:"center" }}>{festivalData["name"]} festival</h1>
             <FestivalPageContent
-              festivalDialogDataListOfInterprets={
-                festivalDialogDataListOfInterprets
+              festivalDataListOfInterprets={
+                festivalDataListOfInterprets
+              }
+              festivalDataListOfStages={
+                festivalDataListOfStages
+              }
+              festivalData={
+                festivalData
               }
             />
           </Paper>

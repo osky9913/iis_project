@@ -120,7 +120,7 @@ export default function CustomAppBar() {
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" className={classes.title} onClick={() => history.push("/festivals")}>
+                    <Typography variant="h6" className={classes.title} onClick={() => history.push("/")}>
                         Festivaly
                     </Typography>
 

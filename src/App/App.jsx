@@ -11,8 +11,8 @@ import Box from "@material-ui/core/Box";
 import AppBar from "./components/layout/AppBar/CustomAppBar";
 import { FestivalDashboard } from "./components/pages/FestivalDashboard/FestivalDashboard";
 import Festival from "./components/pages/FestivalPage/Festival";
-import {InterpretDashboard} from "./components/pages/InterpretDashboard/InterpretDashboard";
 import Interpret from "./components/pages/InterpretDashboard/InterpretPage/Interpret";
+import {InterpretDashboard} from "./components/pages/InterpretDashboard/InterpretDashboard";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -69,7 +69,7 @@ const App = () => {
 
             <Switch>
               <Route exact path="/">
-                <FestivalDashboard />
+                <p style={{paddingTop: 100, paddingLeft: 100}}>Yaay domovska stranocka</p>
               </Route>
 
               <Route exact path="/festivals">
