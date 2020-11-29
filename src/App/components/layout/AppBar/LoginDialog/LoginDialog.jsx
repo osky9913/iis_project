@@ -8,7 +8,7 @@ import Slide from "@material-ui/core/Slide";
 import LoginDialogForm from "./LoginDialogForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchema } from "./ValidationSchema";
+import { loginDialogValidationSchema } from "./LoginDialogValidationSchema";
 import { userService } from "../../../../../services";
 import UserContext from "../../../../../context/UserContext";
 
@@ -18,7 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AlertDialogSlide(props) {
   const methods = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(loginDialogValidationSchema),
   });
   const { handleSubmit, errors, control } = methods;
   const { setUser } = useContext(UserContext);
