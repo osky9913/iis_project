@@ -47,6 +47,9 @@ export const api = {
   getInterpretByID: (ID) =>
       axiosInstance
           .get(endpoints.interpret + "/" + ID),
+  getStageByID: (ID) =>
+      axiosInstance
+          .get(endpoints.stage + "/" + ID),
 };
 
 export const apiAll = () => {

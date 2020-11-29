@@ -13,6 +13,7 @@ import { FestivalDashboard } from "./components/pages/FestivalDashboard/Festival
 import Festival from "./components/pages/FestivalPage/Festival";
 import Interpret from "./components/pages/InterpretDashboard/InterpretPage/Interpret";
 import {InterpretDashboard} from "./components/pages/InterpretDashboard/InterpretDashboard";
+import Stage from "./components/pages/StagePage/Stage";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -89,6 +90,12 @@ const App = () => {
                   exact
                   path={"/interpret-:interpretId"}
                   children={<Interpret />}
+              />
+
+              <Route
+                  exact
+                  path={"/stage-:someId/:stageId"}
+                  children={<Stage />}
               />
 
               <Route exact path="/register">
