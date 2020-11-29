@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import ListItem from "@material-ui/core/ListItem";
@@ -20,6 +20,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import {useHistory} from "react-router-dom";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -85,7 +86,7 @@ const FestivalPageContent = (props) => {
                         onClick={() => window.open("https://goo.gl/maps/LD1JC4g4WNXtp13s5", "_blank")}
                     >
                         <PlaceIcon className={classes.icon}/>
-                        {festivalData["country"]}, {festivalData["city"]}, {festivalData["street"]}
+                        {festivalData["street"]}, {festivalData["city"]}, {festivalData["country"]}
 
                     </Link>
                     <Typography color="textPrimary" className={classes.link}>
@@ -115,7 +116,7 @@ const FestivalPageContent = (props) => {
                                     <ListItemText
                                         primary={festival["interpret"]["name"]}
                                         secondary={"Rating: " + festival["interpret"]["rating"] + ", Genre: " +
-                                        festival["interpret"]["genre"] + ", Stage: " + festival["interpret"][""]}
+                                        festival["interpret"]["genre"]}
                                         onClick={() => history.push("/interpret-" + festival["interpret"]["id"])}
                                     />
                                     <ListItemSecondaryAction>
@@ -137,12 +138,16 @@ const FestivalPageContent = (props) => {
                         {festivalDataListOfStages.map((stage, index) => {
                             return (
                                 <ListItem key={index} divider={true}>
-                                    <ListItemAvatar>
+                                    <ListItemAvatar
+                                        onClick={() => history.push("/stage-" + festivalData["id"] + "/" +
+                                            stage["id"])}>
                                         <Avatar/>
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={stage["name"]}
                                         secondary={"Capacity: " + stage["capacity"]}
+                                        onClick={() => history.push("/stage-" + festivalData["id"] + "/" +
+                                            stage["id"])}
                                     />
                                     <ListItemSecondaryAction>
                                         <IconButton edge="end" aria-label="delete">
@@ -183,33 +188,8 @@ const FestivalPageContent = (props) => {
             </div>
         );
     } else {
-        return <CircularProgress/>;
+        return <CircularProgress style={{marginLeft: '47%'}}/>;
     }
 };
 
 export default FestivalPageContent;
-/*
-<Grid container
-                      direction="column"
-                      justify="center"
-                      alignItems="center"
-                      spacing={3}>
-                    <Grid item key={1} >
-                        <Typography variant="body2"
-                                    align={"right"}
-                                    paragraph={true}
-                                    gutterBottom={true}>
-                            body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                            unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                            dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-                        </Typography>
-                    </Grid>
-                    <Grid item key={2} className={classes.image}>
-                        <container maxWidth={"sm"}>
-
-                            <img src="https://i.pinimg.com/originals/93/47/6b/93476b00366cd9998f5299a75d793f17.jpg"  alt={"Example Alt"}/>
-
-                        </container>
-                    </Grid>
-                </Grid>
- */

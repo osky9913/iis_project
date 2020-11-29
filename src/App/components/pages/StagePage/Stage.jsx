@@ -3,8 +3,8 @@ import React, {useEffect, useState} from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useParams} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import {api} from "../../../../../api/api";
-import InterpretPageContents from "./InterpretPageContents";
+import {api} from "../../../../api/api";
+import StagePageContent from "./StagePageContent";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -23,35 +23,29 @@ const useStyles = makeStyles((theme) => ({
         height: "auto",
         padding: theme.spacing(3),
     },
+    container: {
+        margin: 4,
+    },
 }));
 
-const Interpret = () => {
+const Stage = () => {
     const classes = useStyles();
-    const [interpretData, setInterpretData] = useState([] | undefined);
+    const [stageData, setInterpretData] = useState([] | undefined);
+    const {someId, stageId} = useParams()
     const [
-        interpretDataListOfMembers,
-        setInterpretDataListOfMembers,
-    ] = useState([]);
-    const [
-        interpretDataListOfFestivals,
-        setInterpretDataListOfFestivals,
-    ] = useState([]);
-    const [
-        interpretDataListOfStages,
-        setInterpretDataListOfStages,
+        stageDataListOfInterprets,
+        setStageDataListOfInterprets,
     ] = useState([]);
 
     useEffect(() => {
-        api.getInterpretByID(interpretId).then((response) => {
+        api.getStageByID(stageId).then((response) => {
             const data = response.data;
             setInterpretData(data);
-            setInterpretDataListOfMembers(data["memberList"])
-            setInterpretDataListOfFestivals(data["festivalInterpret"])
-            setInterpretDataListOfStages(data["stageInterpret"])
+            setStageDataListOfInterprets(data["stageInterpret"])
         });
     }, []);
 
-    const {interpretId} = useParams();
+    console.log(someId)
 
     return (
         <main className={classes.content}>
@@ -59,11 +53,9 @@ const Interpret = () => {
             <div style={{padding: "20px"}}>
                 <Container maxWidth="md">
                     <Paper className={classes.page}>
-                        <h1 style={{ textAlign:"center" }}>{interpretData["name"]}</h1>
-                        <InterpretPageContents interpretData={interpretData}
-                        interpretDataListOfMembers={interpretDataListOfMembers}
-                        interpretDataListOfFestivals={interpretDataListOfFestivals}
-                        interpretDataListOfStages={interpretDataListOfStages}/>
+                        <h1 style={{textAlign: "center"}}>{stageData["name"]}</h1>
+                        <StagePageContent stageData={stageData}
+                                          stageDataListOfInterprets={stageDataListOfInterprets}/>
                     </Paper>
                 </Container>
             </div>
@@ -71,4 +63,4 @@ const Interpret = () => {
     );
 };
 
-export default Interpret;
+export default Stage;

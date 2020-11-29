@@ -55,6 +55,7 @@ export const api = {
     (axiosInstance.defaults.headers.common["Authorization"] = ""),
   getFestivalByID: (ID) => axiosInstance.get(endpoints.festival + "/" + ID),
   getInterpretByID: (ID) => axiosInstance.get(endpoints.interpret + "/" + ID),
+  getStageByID: (ID) => axiosInstance.get(endpoints.stage + "/" + ID),
 };
 
 export const apiAll = () => {
