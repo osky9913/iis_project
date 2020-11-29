@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import ProfileSettings from "./ProfileSettings/ProfileSettings";
+import UsersSettings from "./UsersSettings/UsersSettings";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -34,7 +35,7 @@ const SettingsPage = () => {
           alignItems="center"
           spacing={3}
         >
-          <Grid item>
+          <Grid item xs={4}>
             <Paper>
               <ProfileSettings />
             </Paper>
@@ -42,7 +43,7 @@ const SettingsPage = () => {
 
           <Grid item>
             <Paper>
-              <p>user settings</p>
+              <UsersSettings />
             </Paper>
           </Grid>
         </Grid>

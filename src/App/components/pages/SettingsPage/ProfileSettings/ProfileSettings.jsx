@@ -6,13 +6,14 @@ import { loginDialogValidationSchema } from "../../../layout/AppBar/LoginDialog/
 import Button from "@material-ui/core/Button";
 import ProfileSettingsForm from "./ProfileSettingsForm";
 import { CircularProgress } from "@material-ui/core";
+import { ProfileSettingsValidationSchema } from "./ProfileSettingsValidationSchema";
 
 const ProfileSettings = () => {
   const { user, setUser } = useContext(UserContext);
   const methods = useForm({
-    resolver: yupResolver(loginDialogValidationSchema),
+    resolver: yupResolver(ProfileSettingsValidationSchema),
   });
-  const { handleSubmit, errors, control } = methods;
+  const { handleSubmit, errors, control, reset } = methods;
 
   const onSubmit = (data) => {
     console.log("fuck you ", data);
@@ -28,6 +29,7 @@ const ProfileSettings = () => {
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           user={user}
+          reset={reset}
         />
         <Button
           variant="contained"

@@ -1,23 +1,47 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FormProvider } from "react-hook-form";
+import { Controller, FormProvider } from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
 import CFormInput from "../../../custom/FormControl/input/CFormInput";
 import UserContext from "../../../../../context/UserContext";
+import MenuItem from "@material-ui/core/MenuItem";
+import { SdeSelect } from "../../../custom/FormControl/SdeSelect";
+import Select from "@material-ui/core/Select";
 
 export default function ProfileSettingsForm(props) {
-  let { errors, control, methods, handleSubmit, onSubmit, user } = props;
+  let { errors, control, methods, handleSubmit, onSubmit, user, reset } = props;
   const [nameHook, setName] = useState("");
   const [surnameHook, setSurname] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const role = [
+    { key: 0, name: "Admin" },
+    { key: 1, name: "Organizer" },
+    { key: 2, name: "Cashier" },
+    { key: 3, name: "Viewer" },
+    { key: 4, name: "Unregistered" },
+  ];
 
   useEffect(() => {
     if (user["user"]) {
-      const { name, surname } = user["user"];
-      setName(name);
-      setSurname(surname);
+      reset({
+        username: user["user"]["username"],
+        name: user["user"]["name"],
+        surname: user["user"]["surname"],
+        city: user["user"]["city"],
+        country: user["user"]["country"],
+        email: user["user"]["email"],
+        id: user["user"]["id"],
+        psc: user["user"]["psc"],
+        reservationList: user["user"]["reservationList"],
+        role: user["user"]["role"],
+        street: user["user"]["street"],
+        token: user["user"]["token"],
+      });
+      if (user["user"]["role"] !== 0) {
+        setDisabled(true);
+      }
+      console.log(user["user"]["role"]);
     }
-  }, [user]);
-
-  console.log(nameHook, surnameHook);
+  }, [user["user"]]);
 
   return (
     <div style={{ padding: "10px" }}>
@@ -25,29 +49,120 @@ export default function ProfileSettingsForm(props) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid
             container
-            direction="column"
+            direction="row"
             justify="flex-start"
-            alignItems="flex-start"
+            alignItems="flex-end"
             spacing={2}
           >
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <CFormInput
-                name="usernameSettings"
+                name="username"
+                label="Pouzivatelske meno"
+                errorobj={errors}
+                type="string"
+                control={control}
+                defaultValue=""
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CFormInput
+                name="name"
                 label="Meno"
                 errorobj={errors}
                 type="string"
                 control={control}
-                defaultValue={nameHook}
+                defaultValue=""
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <CFormInput
-                name="passwordSettings"
-                label="Heslo"
+                name="surname"
+                label="Priezvisko"
                 errorobj={errors}
+                type="string"
                 control={control}
-                type="password"
-                defaultValue={surnameHook}
+                defaultValue=""
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CFormInput
+                name="city"
+                label="Mesto"
+                errorobj={errors}
+                type="string"
+                control={control}
+                defaultValue=""
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CFormInput
+                name="country"
+                label="Krajina"
+                errorobj={errors}
+                type="string"
+                control={control}
+                defaultValue=""
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CFormInput
+                name="email"
+                label="Email"
+                errorobj={errors}
+                type="string"
+                control={control}
+                defaultValue=""
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CFormInput
+                name="id"
+                label="id"
+                errorobj={errors}
+                type="string"
+                control={control}
+                defaultValue=""
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <CFormInput
+                name="psc"
+                label="psc"
+                errorobj={errors}
+                type="string"
+                control={control}
+                defaultValue=""
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CFormInput
+                name="street"
+                label="ulica"
+                errorobj={errors}
+                type="string"
+                control={control}
+                defaultValue=""
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <Controller
+                as={
+                  <Select label="Role" name="role">
+                    {role.map((person) => (
+                      <MenuItem key={person.key} value={person.key}>
+                        {person.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                }
+                control={control}
+                fullWidth={true}
+                label="Role"
+                name="role"
+                errorobj={errors}
+                defaultValue={user["user"] ? user["user"]["role"] : 4}
               />
             </Grid>
           </Grid>
