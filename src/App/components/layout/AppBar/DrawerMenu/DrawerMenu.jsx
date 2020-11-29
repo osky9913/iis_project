@@ -72,10 +72,11 @@ export default function CustomDrawerMenu(props) {
             <List>
                 {["festivals", "interprets"].map(
                     (text, index) => (
-                        <ListItem button key={text} onClick={() => {
-                            history.push("/" + text);
-                            handleDrawerClose();
-                        }}>
+                        <ListItem button key={text}
+                                  onClick={() => {
+                                      history.push("/" + text);
+                                      handleDrawerClose();
+                                  }}>
                             <ListItemIcon>
                                 {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
                             </ListItemIcon>
@@ -86,8 +87,12 @@ export default function CustomDrawerMenu(props) {
             </List>
             <Divider/>
             <List>
-                {['Placeholder3', 'Placeholder4', 'Placeholder5'].map((text, index) => (
-                    <ListItem button key={text}>
+                {['reservations'].map((text, index) => (
+                    <ListItem button key={text}
+                              onClick={() => {
+                                  history.push("/" + text);
+                                  handleDrawerClose();
+                              }}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
                         <ListItemText primary={text}/>
                     </ListItem>

@@ -67,6 +67,7 @@ const StagePageContent = (props) => {
     const classes = useStyles()
     let history = useHistory();
 
+
     if (stageData) {
         return (
             <div className={classes.root}>

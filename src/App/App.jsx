@@ -14,6 +14,8 @@ import Festival from "./components/pages/FestivalPage/Festival";
 import Interpret from "./components/pages/InterpretDashboard/InterpretPage/Interpret";
 import {InterpretDashboard} from "./components/pages/InterpretDashboard/InterpretDashboard";
 import Stage from "./components/pages/StagePage/Stage";
+import HomePage from "./components/pages/HomePage/HomePage";
+import UserReservationPage from "./components/pages/UserReservationPage/UserReservationPage";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -70,7 +72,7 @@ const App = () => {
 
             <Switch>
               <Route exact path="/">
-                <p style={{paddingTop: 100, paddingLeft: 100}}>Yaay domovska stranocka</p>
+                <HomePage/>
               </Route>
 
               <Route exact path="/festivals">
@@ -97,6 +99,10 @@ const App = () => {
                   path={"/stage-:someId/:stageId"}
                   children={<Stage />}
               />
+
+              <Route exact path="/reservations">
+                <UserReservationPage />
+              </Route>
 
               <Route exact path="/register">
                 <div>"hello world register"</div>
