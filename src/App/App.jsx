@@ -16,6 +16,7 @@ import {InterpretDashboard} from "./components/pages/InterpretDashboard/Interpre
 import Stage from "./components/pages/StagePage/Stage";
 import HomePage from "./components/pages/HomePage/HomePage";
 import UserReservationPage from "./components/pages/UserReservationPage/UserReservationPage";
+import SettingsPage from "./components/pages/SettingsPage/SettingsPage";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -107,19 +108,7 @@ const App = () => {
               <Route exact path="/register">
                 <div>"hello world register"</div>
               </Route>
-              <Route exact path="/settings">
-                <div>
-                  <CustomAppBar />
-                  <main className={classes.content}>
-                    <div className={classes.toolbar} />
-                    <div style={{ padding: "20px" }}>
-                      <Container maxWidth="lg">
-                        <p> "Setting you mother fucker"</p>
-                      </Container>
-                    </div>
-                  </main>
-                </div>
-              </Route>
+              <Route exact path="/settings" children={<SettingsPage />} />
             </Switch>
           </Box>
         </Router>

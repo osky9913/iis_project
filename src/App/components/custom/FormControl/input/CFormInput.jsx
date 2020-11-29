@@ -4,7 +4,11 @@ import TextField from "@material-ui/core/TextField";
 import "./index.css";
 
 function CFormInput(props) {
-  const { name, label, required, errorobj, control, type } = props;
+  let { name, label, required, errorobj, control, type, defaultValue } = props;
+  if (defaultValue === undefined) {
+    defaultValue = "";
+  }
+
   let isError = false;
   let errorMessage = "";
   if (errorobj && errorobj.hasOwnProperty(name)) {
@@ -19,7 +23,7 @@ function CFormInput(props) {
         name={name}
         control={control}
         type="password"
-        defaultValue=""
+        defaultValue={defaultValue.toString()}
         label={label}
         fullWidth={true}
         InputLabelProps={{
@@ -37,7 +41,7 @@ function CFormInput(props) {
         as={TextField}
         name={name}
         control={control}
-        defaultValue=""
+        defaultValue={defaultValue.toString()}
         label={label}
         fullWidth={true}
         InputLabelProps={{
