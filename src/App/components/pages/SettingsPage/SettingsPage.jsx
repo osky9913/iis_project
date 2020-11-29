@@ -1,7 +1,6 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import ProfileSettings from "./ProfileSettings/ProfileSettings";
 import UsersSettings from "./UsersSettings/UsersSettings";
@@ -18,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+  },
+  adminPage: {
+    minWidth: "33%",
   },
 }));
 
@@ -41,9 +43,9 @@ const SettingsPage = () => {
             </Paper>
           </Grid>
 
-          <Grid item>
+          <Grid item xs={4}>
             <Paper>
-              <UsersSettings />
+              <UsersSettings className={classes.adminPage} />
             </Paper>
           </Grid>
         </Grid>

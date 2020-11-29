@@ -11,6 +11,18 @@ export const axiosInstance = axios.create({
 });
 
 export const api = {
+  getAllUsers: () =>
+    axiosInstance
+      .get(endpoints.user)
+      .then((res) => res.data)
+      .catch((err) => console.error(err)),
+
+  getUserDetailed: () =>
+    axiosInstance
+      .get(endpoints.user)
+      .then((res) => res.data)
+      .catch((err) => console.error(err)),
+
   getFestival: () =>
     axiosInstance
       .get(endpoints.festival)
@@ -41,12 +53,8 @@ export const api = {
   },
   deleteTokenFromHeader: () =>
     (axiosInstance.defaults.headers.common["Authorization"] = ""),
-  getFestivalByID: (ID) =>
-      axiosInstance
-          .get(endpoints.festival + "/" + ID),
-  getInterpretByID: (ID) =>
-      axiosInstance
-          .get(endpoints.interpret + "/" + ID),
+  getFestivalByID: (ID) => axiosInstance.get(endpoints.festival + "/" + ID),
+  getInterpretByID: (ID) => axiosInstance.get(endpoints.interpret + "/" + ID),
 };
 
 export const apiAll = () => {

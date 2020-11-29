@@ -7,7 +7,6 @@ export const ProfileSettingsValidationSchema = yup.object().shape({
   city: yup.string().required("city is Required").nullable(),
   country: yup.string().required("country is Required").nullable(),
   email: yup.string().required("email is Required").nullable(),
-  id: yup.string().required("id is Required").nullable(),
   psc: yup.string().required("psc is Required").nullable(),
   role: yup.number().required("role is Required").nullable(),
   street: yup.string().required("Name is Required").nullable(),

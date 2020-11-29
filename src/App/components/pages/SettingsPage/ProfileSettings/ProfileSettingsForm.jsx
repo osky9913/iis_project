@@ -1,16 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, FormProvider } from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
 import CFormInput from "../../../custom/FormControl/input/CFormInput";
-import UserContext from "../../../../../context/UserContext";
 import MenuItem from "@material-ui/core/MenuItem";
-import { SdeSelect } from "../../../custom/FormControl/SdeSelect";
 import Select from "@material-ui/core/Select";
 
 export default function ProfileSettingsForm(props) {
   let { errors, control, methods, handleSubmit, onSubmit, user, reset } = props;
-  const [nameHook, setName] = useState("");
-  const [surnameHook, setSurname] = useState("");
   const [disabled, setDisabled] = useState(false);
   const role = [
     { key: 0, name: "Admin" },
@@ -26,10 +22,10 @@ export default function ProfileSettingsForm(props) {
         username: user["user"]["username"],
         name: user["user"]["name"],
         surname: user["user"]["surname"],
+        password: user["user"]["password"],
         city: user["user"]["city"],
         country: user["user"]["country"],
         email: user["user"]["email"],
-        id: user["user"]["id"],
         psc: user["user"]["psc"],
         reservationList: user["user"]["reservationList"],
         role: user["user"]["role"],
@@ -39,7 +35,7 @@ export default function ProfileSettingsForm(props) {
       if (user["user"]["role"] !== 0) {
         setDisabled(true);
       }
-      console.log(user["user"]["role"]);
+      console.log(user["user"]);
     }
   }, [user["user"]]);
 
@@ -86,6 +82,16 @@ export default function ProfileSettingsForm(props) {
             </Grid>
             <Grid item xs={6}>
               <CFormInput
+                name="password"
+                label="Heslo"
+                errorobj={errors}
+                type="password"
+                control={control}
+                defaultValue=""
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CFormInput
                 name="city"
                 label="Mesto"
                 errorobj={errors}
@@ -108,16 +114,6 @@ export default function ProfileSettingsForm(props) {
               <CFormInput
                 name="email"
                 label="Email"
-                errorobj={errors}
-                type="string"
-                control={control}
-                defaultValue=""
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CFormInput
-                name="id"
-                label="id"
                 errorobj={errors}
                 type="string"
                 control={control}
