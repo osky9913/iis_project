@@ -10,6 +10,13 @@ import { createBrowserHistory } from "history";
 import Box from "@material-ui/core/Box";
 import AppBar from "./components/layout/AppBar/CustomAppBar";
 import { FestivalDashboard } from "./components/pages/FestivalDashboard/FestivalDashboard";
+import Festival from "./components/pages/FestivalPage/Festival";
+import Interpret from "./components/pages/InterpretDashboard/InterpretPage/Interpret";
+import {InterpretDashboard} from "./components/pages/InterpretDashboard/InterpretDashboard";
+import Stage from "./components/pages/StagePage/Stage";
+import HomePage from "./components/pages/HomePage/HomePage";
+import UserReservationPage from "./components/pages/UserReservationPage/UserReservationPage";
+import SettingsPage from "./components/pages/SettingsPage/SettingsPage";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -66,28 +73,42 @@ const App = () => {
 
             <Switch>
               <Route exact path="/">
+                <HomePage/>
+              </Route>
+
+              <Route exact path="/festivals">
                 <FestivalDashboard />
               </Route>
+              <Route
+                exact
+                path={"/festival-:festivalId"}
+                children={<Festival />}
+              />
+
+              <Route exact path="/interprets">
+                <InterpretDashboard />
+              </Route>
+
+              <Route
+                  exact
+                  path={"/interpret-:interpretId"}
+                  children={<Interpret />}
+              />
+
+              <Route
+                  exact
+                  path={"/stage-:someId/:stageId"}
+                  children={<Stage />}
+              />
+
+              <Route exact path="/reservations">
+                <UserReservationPage />
+              </Route>
+
               <Route exact path="/register">
                 <div>"hello world register"</div>
               </Route>
-              <Route exact path="/settings">
-                <div>
-                  <CustomAppBar />
-                  <main className={classes.content}>
-                    <div className={classes.toolbar} />
-                    <div style={{ padding: "20px" }}>
-                      <Container maxWidth="lg">
-                        <p> "Setting you mother fucker"</p>
-                      </Container>
-                    </div>
-                  </main>
-                </div>
-              </Route>
-
-              <Route exact path="/interprets">
-                <p> helllo world</p>
-              </Route>
+              <Route exact path="/settings" children={<SettingsPage />} />
             </Switch>
           </Box>
         </Router>
