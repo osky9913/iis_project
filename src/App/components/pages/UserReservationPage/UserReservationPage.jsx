@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MaterialTable from "material-table";
-import { api } from "../../../../api/api";
+import { api, axiosInstance } from "../../../../api/api";
+import { endpoints } from "../../../../api/apiConstants";
+import UserContext from "../../../../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,71 +24,67 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserReservationPage = () => {
+  const { user } = useContext(UserContext);
+
   const classes = useStyles();
   const [reservationsData, setReservationsData] = useState([]);
 
   useEffect(() => {
-    api.getAllReservation().then((response) => setReservationsData(response));
-  }, []);
-
-  console.log(reservationsData);
+    if (user["user"]) {
+      axiosInstance
+        .get(endpoints.user + "/" + user["user"]["id"])
+        .then((response) =>
+          setReservationsData(response.data["reservationList"])
+        );
+    }
+  }, [user]);
 
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
       <MaterialTable
-        title="Prehlad rezervacii"
+        title="Prehlad vasich rezervacii"
         columns={[
-          { title: "Name", field: "name" },
-          { title: "Price", field: "price", type: "numeric" },
-          { title: "Tickets", field: "tickets", type: "numeric" },
-          { title: "Birth Year", field: "birthYear", type: "numeric" },
           {
-            title: "Birth Place",
-            field: "birthCity",
-            lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
-          },
-          {
-            title: "State",
+            title: "Stav",
             field: "state",
             lookup: {
-              0: "In progress",
+              0: "InProgress",
               1: "Accepted",
-              2: "ujebalo dekel",
+              2: "Declined",
+              3: "Refused",
             },
           },
-          { title: "Description", field: "description" },
+
+          { title: "Popis", field: "description" },
+          { title: "Nazov festivalu", field: "festivalName" },
+          { title: "Cena", field: "price" },
+          { title: "Pocet listkov", field: "tickets" },
+          { title: "UserName", field: "username" },
         ]}
-        data={[
-          {
-            name: "Mehmet",
-            price: 88,
-            tickets: 69,
-            birthYear: 1987,
-            birthCity: 63,
-            state: 2,
-            description: "idk dood",
-          },
-          {
-            name: "Zerya Betül",
-            price: 1488,
-            tickets: 69,
-            birthYear: 2017,
-            birthCity: 34,
-            state: 0,
-            description: "idk dood",
-          },
-        ]}
+        data={reservationsData}
         actions={[
           {
-            icon: "check",
-            tooltip: "Save User",
-            onClick: (event, rowData) => alert("You saved " + rowData.name),
-          },
-          {
             icon: "clear",
-            tooltip: "Delete Record",
-            onClick: () => alert("You deleted me :(!"),
+            tooltip: "Zrus rezervaciu",
+            onClick: (event, rowData) => {
+              axiosInstance
+                .get(endpoints.reservation + "/" + rowData.id)
+                .then((res) => {
+                  if (res.status === 200) {
+                    let tempData = res.data;
+                    tempData["state"] = 3;
+                    tempData["description"] = "Rezervacia zrusena Vami";
+
+                    axiosInstance
+                      .put(endpoints.reservation, tempData)
+                      .then((helloWorld) =>
+                        console.log("helloo", helloWorld.status)
+                      );
+                    location.reload();
+                  }
+                });
+            },
           },
         ]}
       />
