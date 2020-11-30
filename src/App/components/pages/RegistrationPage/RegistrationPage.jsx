@@ -1,8 +1,8 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { useParams } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
+import RegistrationForm from "./RegistrationForm";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -32,14 +32,15 @@ const useStyles = makeStyles((theme) => ({
 
 const RegistrationPage = () => {
   const classes = useStyles();
-  const id = useParams()["id"];
 
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
       <div style={{ padding: "20px" }}>
         <Container maxWidth="md">
-          <Paper className={classes.page}>hi</Paper>
+          <Paper className={classes.page}>
+            <RegistrationForm />
+          </Paper>
         </Container>
       </div>
     </main>
