@@ -35,7 +35,7 @@ export const api = {
       .get(endpoints.interpret)
       .then((res) => res.data)
       .catch((err) => console.error(err)),
-  getReservation: () =>
+  getAllReservation: () =>
     axiosInstance
       .get(endpoints.reservation)
       .then((res) => res.data)
@@ -67,7 +67,7 @@ export const apiAll = () => {
       api.getFestival(),
       api.getInterpret(),
       api.getStage(),
-      api.getReservation(),
+      api.getAllReservation(),
     ])
     .then((respond) => {
       responses.push(respond);
