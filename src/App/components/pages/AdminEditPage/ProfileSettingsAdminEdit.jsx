@@ -23,7 +23,7 @@ const ProfileSettingsAdminEdit = (props) => {
     api.deleteTokenFromHeader();
 
     api.putUser(JSON.stringify(data));
-    history.push("settings");
+    history.push("/admin-settings");
   };
 
   return (

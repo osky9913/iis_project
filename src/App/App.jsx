@@ -18,6 +18,7 @@ import SettingsPage from "./components/pages/SettingsPage/SettingsPage";
 import AdminEditPage from "./components/pages/AdminEditPage/AdminEditPage";
 import AdminReservationPage from "./components/pages/AdminReservationPage/AdminReservationPage";
 import RegistrationPage from "./components/pages/RegistrationPage/RegistrationPage";
+import UsersSettings from "./components/pages/SettingsPage/UsersSettings/UsersSettings";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -118,6 +119,13 @@ const App = () => {
 
               <Route exact path="/admin-reservation">
                 <AdminReservationPage />
+              </Route>
+
+              <Route
+                  exact
+                  path={"/admin-settings"}
+              >
+                <UsersSettings  />
               </Route>
 
               <Route exact path="/register">

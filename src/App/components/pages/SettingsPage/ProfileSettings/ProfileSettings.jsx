@@ -7,15 +7,25 @@ import ProfileSettingsForm from "./ProfileSettingsForm";
 import { CircularProgress } from "@material-ui/core";
 import { ProfileSettingsValidationSchema } from "./ProfileSettingsValidationSchema";
 import { api } from "../../../../../api/api";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    textAlign: "center",
+    bottom: 0,
+    padding: 20,
+  },
+}));
 
 //@todo tlacitko ulozit na pravo
 
-const ProfileSettings = (props) => {
+const ProfileSettings = () => {
   const { user, setUser } = useContext(UserContext);
   const methods = useForm({
     resolver: yupResolver(ProfileSettingsValidationSchema),
   });
   const { handleSubmit, errors, control, reset } = methods;
+  const classes = useStyles();
 
   const onSubmit = (data) => {
     data["id"] = user["user"]["id"];
@@ -49,7 +59,8 @@ const ProfileSettings = (props) => {
 
   if (user) {
     return (
-      <div>
+      <div className={classes.root}>
+        <h1 style={{marginBottom: 10}}>Nastavenie účtu</h1>
         <ProfileSettingsForm
           errors={errors}
           control={control}
@@ -64,7 +75,7 @@ const ProfileSettings = (props) => {
           color="primary"
           onClick={handleSubmit(onSubmit)}
         >
-          Ulozit
+          Uložiť
         </Button>
       </div>
     );
