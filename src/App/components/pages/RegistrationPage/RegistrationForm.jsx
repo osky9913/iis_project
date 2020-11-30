@@ -27,16 +27,15 @@ const RegistrationForm = () => {
   const { handleSubmit, errors, control } = methods;
   const onSubmit = (data) => {
     data["role"] = 3;
-    axiosInstance.post(endpoints.user, data).then((response) => {
-      if (response.status !== 200) {
-        setError(true);
-      } else {
+    axiosInstance
+      .post(endpoints.user, data)
+      .then((response) => {
         setSucces(true);
         sleep(2000).then(() => {
           history.push("/");
         });
-      }
-    });
+      })
+      .catch((error) => setError(true));
     console.log(data);
   };
   return (
