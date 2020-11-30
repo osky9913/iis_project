@@ -12,13 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { AddNewFestivalValidationSchema } from "./AddNewFestivalValidationSchema";
 
 import DateFnsUtils from "@date-io/date-fns"; // choose your lib
-import {
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-
-
-
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 const genre = [
   { key: 0, name: "Rock" },
@@ -163,10 +157,7 @@ const AddNewFestivalForm = () => {
               </Grid>
 
               <Grid item xs={6}>
-                <DateTimePicker
-                  value={startDate}
-                  onChange={setStartDate}
-                />
+                <DateTimePicker value={startDate} onChange={setStartDate} />
                 <p>Zaciatok</p>
               </Grid>
 
