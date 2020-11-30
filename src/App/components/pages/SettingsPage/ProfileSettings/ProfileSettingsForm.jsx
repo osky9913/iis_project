@@ -9,7 +9,6 @@ import { axiosInstance } from "../../../../../api/api";
 export default function ProfileSettingsForm(props) {
   let { errors, control, methods, handleSubmit, onSubmit, user, reset } = props;
   const [disabled, setDisabled] = useState(false);
-
   const [notPassword, setNotPassword] = useState("");
 
   useEffect(() => {
@@ -48,6 +47,7 @@ export default function ProfileSettingsForm(props) {
         token: user["user"]["token"],
       });
       if (user["user"]["role"] !== 0) {
+        // vypinanie dialogu
         setDisabled(true);
       }
       console.log(user["user"]);
@@ -169,6 +169,7 @@ export default function ProfileSettingsForm(props) {
                   </Select>
                 }
                 control={control}
+                disabled={disabled}
                 fullWidth={true}
                 label="Role"
                 name="role"
