@@ -4,10 +4,31 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../../../../context/UserContext";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useHistory } from "react-router-dom";
+import {makeStyles} from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+  },
+  toolbar: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 3),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(6, 2, 2, 11),
+  },
+}));
 
 const UserSettings = () => {
   const [data, setData] = useState(undefined);
   const { user } = useContext(UserContext);
+  const classes = useStyles();
   let history = useHistory();
 
   useEffect(() => {
@@ -37,7 +58,8 @@ const UserSettings = () => {
 
   if (user["user"]) {
     return (
-      <div style={{ width: 900 }}>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
         <MaterialTable
           title="Admin page"
           columns={columns}
@@ -71,7 +93,7 @@ const UserSettings = () => {
               }),
           }}
         />
-      </div>
+      </main>
     );
   } else {
     return <CircularProgress />;

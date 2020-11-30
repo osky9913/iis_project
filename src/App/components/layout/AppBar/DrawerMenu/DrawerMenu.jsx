@@ -16,6 +16,7 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../../../../../context/UserContext";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import AccessibleForwardIcon from "@material-ui/icons/AccessibleForward";
+import PregnantWomanIcon from '@material-ui/icons/PregnantWoman';
 
 const drawerWidth = 240;
 
@@ -133,6 +134,30 @@ export default function CustomDrawerMenu(props) {
             </List>
           ) : null}
         </div>
+      ) : null}
+
+      {user["user"] ? (
+          <div>
+            {user["user"]["role"] === 0 ? (
+                <List>
+                  {["admin page"].map((text, index) => (
+                      <ListItem
+                          button
+                          key={text}
+                          onClick={() => {
+                            history.push("/admin-settings");
+                            handleDrawerClose();
+                          }}
+                      >
+                        <ListItemIcon>
+                          <PregnantWomanIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                      </ListItem>
+                  ))}
+                </List>
+            ) : null}
+          </div>
       ) : null}
     </Drawer>
   );
