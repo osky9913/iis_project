@@ -3,10 +3,12 @@ import { api, axiosInstance } from "../../../../../api/api";
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../../../../context/UserContext";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useHistory } from "react-router-dom";
 
 const UserSettings = () => {
   const [data, setData] = useState(undefined);
   const { user } = useContext(UserContext);
+  let history = useHistory();
 
   useEffect(() => {
     api.getAllUsers().then((data) => {
@@ -44,7 +46,8 @@ const UserSettings = () => {
             {
               icon: "edit",
               tooltip: "edit User",
-              onClick: (event, rowData) => alert("You saved " + rowData.name),
+              onClick: (event, rowData) =>
+                history.push("admin-edit-" + rowData["id"]),
             },
           ]}
           editable={{

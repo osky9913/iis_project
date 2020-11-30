@@ -3,8 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { userService } from "../services";
-import CustomAppBar from "./components/layout/AppBar/CustomAppBar";
-import Container from "@material-ui/core/Container";
+
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { createBrowserHistory } from "history";
 import Box from "@material-ui/core/Box";
@@ -12,11 +11,12 @@ import AppBar from "./components/layout/AppBar/CustomAppBar";
 import { FestivalDashboard } from "./components/pages/FestivalDashboard/FestivalDashboard";
 import Festival from "./components/pages/FestivalPage/Festival";
 import Interpret from "./components/pages/InterpretDashboard/InterpretPage/Interpret";
-import {InterpretDashboard} from "./components/pages/InterpretDashboard/InterpretDashboard";
+import { InterpretDashboard } from "./components/pages/InterpretDashboard/InterpretDashboard";
 import Stage from "./components/pages/StagePage/Stage";
 import HomePage from "./components/pages/HomePage/HomePage";
 import UserReservationPage from "./components/pages/UserReservationPage/UserReservationPage";
 import SettingsPage from "./components/pages/SettingsPage/SettingsPage";
+import AdminEditPage from "./components/pages/AdminEditPage/AdminEditPage";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -73,7 +73,7 @@ const App = () => {
 
             <Switch>
               <Route exact path="/">
-                <HomePage/>
+                <HomePage />
               </Route>
 
               <Route exact path="/festivals">
@@ -90,15 +90,21 @@ const App = () => {
               </Route>
 
               <Route
-                  exact
-                  path={"/interpret-:interpretId"}
-                  children={<Interpret />}
+                exact
+                path={"/interpret-:interpretId"}
+                children={<Interpret />}
               />
 
               <Route
-                  exact
-                  path={"/stage-:someId/:stageId"}
-                  children={<Stage />}
+                exact
+                path={"/stage-:someId/:stageId"}
+                children={<Stage />}
+              />
+
+              <Route
+                exact
+                path={"/admin-edit-:id"}
+                children={<AdminEditPage />}
               />
 
               <Route exact path="/reservations">
