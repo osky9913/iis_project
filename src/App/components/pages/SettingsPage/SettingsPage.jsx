@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   adminPage: {
-    minWidth: "33%",
+    textAlign: "center",
+    width: "100%",
   },
 }));
 
