@@ -26,7 +26,7 @@ const UserReservationPage = () => {
   const [reservationsData, setReservationsData] = useState([]);
 
   useEffect(() => {
-    api.getReservation().then((response) => setReservationsData(response));
+    api.getAllReservation().then((response) => setReservationsData(response));
   }, []);
 
   console.log(reservationsData);
@@ -83,11 +83,11 @@ const UserReservationPage = () => {
             tooltip: "Save User",
             onClick: (event, rowData) => alert("You saved " + rowData.name),
           },
-            {
-                icon: "clear",
-                tooltip: "Delete Record",
-                onClick: () => alert("You deleted me :(!"),
-            }
+          {
+            icon: "clear",
+            tooltip: "Delete Record",
+            onClick: () => alert("You deleted me :(!"),
+          },
         ]}
       />
     </main>
