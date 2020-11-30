@@ -19,6 +19,7 @@ import AdminEditPage from "./components/pages/AdminEditPage/AdminEditPage";
 import AdminReservationPage from "./components/pages/AdminReservationPage/AdminReservationPage";
 import RegistrationPage from "./components/pages/RegistrationPage/RegistrationPage";
 import UsersSettings from "./components/layout/AppBar/DrawerMenu/UsersSettings/UsersSettings";
+import AddNewFestivalPage from "./components/pages/AddNewFestivalPage/AddNewFestivalPage";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -123,6 +124,10 @@ const App = () => {
 
               <Route exact path={"/admin-settings"}>
                 <UsersSettings />
+              </Route>
+
+              <Route exact path={"/add-new-festival"}>
+                <AddNewFestivalPage />
               </Route>
 
               <Route exact path="/register">

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import FestivalCard from "./FestivalCard/FestivalCard";
@@ -6,6 +6,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { api } from "../../../../api/api";
 import FestivalCardAdd from "./FestivalCard/FestivalCardAdd";
 import UserContext from "../../../../context/UserContext";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -26,7 +27,7 @@ export const FestivalDashboard = () => {
   const classes = useStyles();
   const [festivals, setFestivals] = useState([]);
   const { user } = useContext(UserContext);
-
+  let history = useHistory();
 
   useEffect(() => {
     api.getFestival().then((response) => setFestivals(response));
@@ -50,13 +51,13 @@ export const FestivalDashboard = () => {
               </Grid>
             ))}
             {user["user"] ? (
-                <div>
-                  {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
-                      <Grid item>
-                        <FestivalCardAdd />
-                      </Grid>
-                  ) : null}
-                </div>
+              <div>
+                {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                  <Grid item>
+                    <FestivalCardAdd />
+                  </Grid>
+                ) : null}
+              </div>
             ) : null}
           </Grid>
         </Container>
