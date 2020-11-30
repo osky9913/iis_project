@@ -53,7 +53,6 @@ const Stage = () => {
             <div style={{padding: "20px"}}>
                 <Container maxWidth="md">
                     <Paper className={classes.page}>
-                        <h1 style={{textAlign: "center"}}>{stageData["name"]}</h1>
                         <StagePageContent stageData={stageData}
                                           stageDataListOfInterprets={stageDataListOfInterprets}/>
                     </Paper>

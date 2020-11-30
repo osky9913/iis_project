@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {api} from "../../../../api/api";
 import InterpretCard from "./InterpretCard/InterpretCard";
+import InterpretCardAdd from "./InterpretCard/InterpretCardAdd";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -46,6 +47,9 @@ export const InterpretDashboard = () => {
                                 <InterpretCard interpret={interpret}/>
                             </Grid>
                         ))}
+                        <Grid item>
+                            <InterpretCardAdd />
+                        </Grid>
                     </Grid>
                 </Container>
             </div>

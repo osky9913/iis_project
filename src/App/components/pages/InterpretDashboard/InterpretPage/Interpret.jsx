@@ -59,7 +59,6 @@ const Interpret = () => {
             <div style={{padding: "20px"}}>
                 <Container maxWidth="md">
                     <Paper className={classes.page}>
-                        <h1 style={{ textAlign:"center" }}>{interpretData["name"]}</h1>
                         <InterpretPageContents interpretData={interpretData}
                         interpretDataListOfMembers={interpretDataListOfMembers}
                         interpretDataListOfFestivals={interpretDataListOfFestivals}

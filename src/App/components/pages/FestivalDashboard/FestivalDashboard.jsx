@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import FestivalCard from "./FestivalCard/FestivalCard";
-import UserContext from "../../../../context/UserContext";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { api } from "../../../../api/api";
+import FestivalCardAdd from "./FestivalCard/FestivalCardAdd";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -46,6 +46,9 @@ export const FestivalDashboard = () => {
                 <FestivalCard festival={festival} />
               </Grid>
             ))}
+            <Grid item>
+              <FestivalCardAdd />
+            </Grid>
           </Grid>
         </Container>
       </div>

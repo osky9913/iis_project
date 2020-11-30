@@ -57,7 +57,6 @@ const Festival = () => {
             <div style={{padding: "20px"}}>
                 <Container maxWidth="md">
                     <Paper className={classes.page}>
-                        <h1 style={{textAlign: "center"}}>{festivalData["name"]} festival</h1>
                         <FestivalPageContent
                             festivalDataListOfInterprets={
                                 festivalDataListOfInterprets
