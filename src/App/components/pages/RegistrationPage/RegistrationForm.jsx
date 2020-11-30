@@ -30,10 +30,12 @@ const RegistrationForm = () => {
     axiosInstance
       .post(endpoints.user, data)
       .then((response) => {
-        setSucces(true);
-        sleep(2000).then(() => {
-          history.push("/");
-        });
+        if (response === 200) {
+          setSucces(true);
+          sleep(2000).then(() => {
+            history.push("/");
+          });
+        }
       })
       .catch((error) => setError(true));
     console.log(data);
