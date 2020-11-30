@@ -3,7 +3,6 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { userService } from "../services";
-
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { createBrowserHistory } from "history";
 import Box from "@material-ui/core/Box";
@@ -18,6 +17,7 @@ import UserReservationPage from "./components/pages/UserReservationPage/UserRese
 import SettingsPage from "./components/pages/SettingsPage/SettingsPage";
 import AdminEditPage from "./components/pages/AdminEditPage/AdminEditPage";
 import AdminReservationPage from "./components/pages/AdminReservationPage/AdminReservationPage";
+import RegistrationPage from "./components/pages/RegistrationPage/RegistrationPage";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -110,6 +110,10 @@ const App = () => {
 
               <Route exact path="/user-reservation">
                 <UserReservationPage />
+              </Route>
+
+              <Route exact path="/new-registration">
+                <RegistrationPage />
               </Route>
 
               <Route exact path="/admin-reservation">

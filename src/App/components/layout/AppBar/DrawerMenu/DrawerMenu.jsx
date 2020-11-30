@@ -113,7 +113,7 @@ export default function CustomDrawerMenu(props) {
       <Divider />
       {user["user"] ? (
         <div>
-          {user["user"]["role"] !== 3 || user["user"]["role"] !== 4 ? (
+          {user["user"]["role"] !== 3 && user["user"]["role"] !== 4 ? (
             <List>
               {["management of tickets"].map((text, index) => (
                 <ListItem
