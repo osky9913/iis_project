@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {api} from "../../../../api/api";
 import InterpretCard from "./InterpretCard/InterpretCard";
 import InterpretCardAdd from "./InterpretCard/InterpretCardAdd";
+import UserContext from "../../../../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const InterpretDashboard = () => {
     const classes = useStyles();
+    const { user } = useContext(UserContext);
 
     const [interprets, setInterprets] = useState([]);
 
@@ -47,9 +49,15 @@ export const InterpretDashboard = () => {
                                 <InterpretCard interpret={interpret}/>
                             </Grid>
                         ))}
-                        <Grid item>
-                            <InterpretCardAdd />
-                        </Grid>
+                        {user["user"] ? (
+                            <div>
+                                {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                                    <Grid item>
+                                        <InterpretCardAdd />
+                                    </Grid>
+                                ) : null}
+                            </div>
+                        ) : null}
                     </Grid>
                 </Container>
             </div>

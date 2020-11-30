@@ -61,15 +61,21 @@ const InterpretPageContents = (props) => {
           >
             Späť
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              console.log("fuckYOu");
-            }}
-          >
-            Editovať
-          </Button>
+            {user["user"] ? (
+                <div>
+                    {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                                console.log("fuckYOu");
+                            }}
+                        >
+                            Editovať
+                        </Button>
+                    ) : null}
+                </div>
+            ) : null}
           <h1 style={{ textAlign: "center" }}>{interpretData["name"]}</h1>
         </div>
         <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
