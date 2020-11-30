@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "@material-ui/core/Button";
@@ -6,11 +6,13 @@ import { ProfileSettingsValidationSchemaAdminEdit } from "./ProfileSettingValida
 import ProfileSettingsFormAdminEdit from "./ProfileSettingsFormAdminEdit";
 import { api } from "../../../../api/api";
 import { useHistory } from "react-router-dom";
+import UserContext from "../../../../context/UserContext";
 
 //@todo tlacitko ulozit na pravo
 
 const ProfileSettingsAdminEdit = (props) => {
   let history = useHistory();
+  const { user } = useContext(UserContext);
   const id = props.id;
   const methods = useForm({
     resolver: yupResolver(ProfileSettingsValidationSchemaAdminEdit),
@@ -19,11 +21,15 @@ const ProfileSettingsAdminEdit = (props) => {
 
   const onSubmit = (data) => {
     data["id"] = props.id;
-    console.log("Post data", data);
     api.deleteTokenFromHeader();
-
     api.putUser(JSON.stringify(data));
+
+    if (data["role"] === 0 && user["user"]["id"] === data["id"]) {
+      localStorage.setItem("user", JSON.stringify(data));
+    }
+
     history.push("/admin-settings");
+    location.reload();
   };
 
   return (

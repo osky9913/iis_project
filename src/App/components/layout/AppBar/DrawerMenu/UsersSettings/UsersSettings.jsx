@@ -1,11 +1,10 @@
 import MaterialTable from "material-table";
-import { api, axiosInstance } from "../../../../../api/api";
+import { api, axiosInstance } from "../../../../../../api/api";
 import React, { useContext, useEffect, useState } from "react";
-import UserContext from "../../../../../context/UserContext";
+import UserContext from "../../../../../../context/UserContext";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useHistory } from "react-router-dom";
-import {makeStyles} from "@material-ui/core/styles";
-
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,8 +67,9 @@ const UserSettings = () => {
             {
               icon: "edit",
               tooltip: "edit User",
-              onClick: (event, rowData) =>
-                history.push("admin-edit-" + rowData["id"]),
+              onClick: (event, rowData) => {
+                history.push("admin-edit-" + rowData["id"]);
+              },
             },
           ]}
           editable={{

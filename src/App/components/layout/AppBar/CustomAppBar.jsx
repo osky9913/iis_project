@@ -72,6 +72,7 @@ export default function CustomAppBar() {
   const [openLoginDialog, setOpenLoginDialog] = React.useState(false);
   const [openLogoutDialog, setOpenLogoutDialog] = React.useState(null); // because null don't know why
   const [openLeftNavBar, setOpenNavBar] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
   const { user } = useContext(UserContext);
 
@@ -180,11 +181,14 @@ export default function CustomAppBar() {
       <LoginDialog
         handleClose={handleLoginClose}
         openLoginDialog={openLoginDialog}
+        error={error}
+        setError={setError}
       />
       <LogoutDialog
         handleLogoutOpen={handleLogoutOpen}
         handleLogoutClose={handleLogoutClose}
         openLogoutDialog={openLogoutDialog}
+        setError={setError}
       />
       <DrawerMenu
         openLeftNavbar={openLeftNavBar}
