@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import ProfileSettings from "./ProfileSettings/ProfileSettings";
 import UsersSettings from "./UsersSettings/UsersSettings";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import UserContext from "../../../../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -24,34 +26,41 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SettingsPage = () => {
+  const { user } = useContext(UserContext);
+
   const classes = useStyles();
+  if (user["user"]) {
+    return (
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <div style={{ padding: "20px" }}>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            spacing={3}
+          >
+            <Grid item xs={4}>
+              <Paper>
+                <ProfileSettings />
+              </Paper>
+            </Grid>
 
-  return (
-    <main className={classes.content}>
-      <div className={classes.toolbar} />
-      <div style={{ padding: "20px" }}>
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          spacing={3}
-        >
-          <Grid item xs={4}>
-            <Paper>
-              <ProfileSettings />
-            </Paper>
+            {user["user"]["role"] === 0 ? (
+              <Grid item xs={4}>
+                <Paper>
+                  <UsersSettings className={classes.adminPage} />
+                </Paper>
+              </Grid>
+            ) : null}
           </Grid>
-
-          <Grid item xs={4}>
-            <Paper>
-              <UsersSettings className={classes.adminPage} />
-            </Paper>
-          </Grid>
-        </Grid>
-      </div>
-    </main>
-  );
+        </div>
+      </main>
+    );
+  } else {
+    return <CircularProgress />;
+  }
 };
 
 export default SettingsPage;

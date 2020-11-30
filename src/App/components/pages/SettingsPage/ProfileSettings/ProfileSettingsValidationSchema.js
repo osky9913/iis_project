@@ -10,4 +10,5 @@ export const ProfileSettingsValidationSchema = yup.object().shape({
   psc: yup.string().required("psc is Required").nullable(),
   role: yup.number().required("role is Required").nullable(),
   street: yup.string().required("Name is Required").nullable(),
+  password: yup.string().required("Name is Required").nullable(),
 });

@@ -4,10 +4,25 @@ import Grid from "@material-ui/core/Grid";
 import CFormInput from "../../../custom/FormControl/input/CFormInput";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import { axiosInstance } from "../../../../../api/api";
 
 export default function ProfileSettingsForm(props) {
   let { errors, control, methods, handleSubmit, onSubmit, user, reset } = props;
   const [disabled, setDisabled] = useState(false);
+
+  const [notPassword, setNotPassword] = useState("");
+
+  useEffect(() => {
+    if (user["user"]) {
+      axiosInstance.get("/User/password/" + user["user"]["id"]).then((res) => {
+        if (res.status === 200) {
+          setNotPassword(res.data["password"]);
+          console.log(res.data["password"]);
+        }
+      });
+    }
+  }, []);
+
   const role = [
     { key: 0, name: "Admin" },
     { key: 1, name: "Organizer" },
@@ -22,7 +37,7 @@ export default function ProfileSettingsForm(props) {
         username: user["user"]["username"],
         name: user["user"]["name"],
         surname: user["user"]["surname"],
-        password: user["user"]["password"],
+        password: notPassword,
         city: user["user"]["city"],
         country: user["user"]["country"],
         email: user["user"]["email"],
@@ -37,7 +52,7 @@ export default function ProfileSettingsForm(props) {
       }
       console.log(user["user"]);
     }
-  }, [user["user"]]);
+  }, [user["user"], notPassword]);
 
   return (
     <div style={{ padding: "10px" }}>

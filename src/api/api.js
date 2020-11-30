@@ -11,6 +11,8 @@ export const axiosInstance = axios.create({
 });
 
 export const api = {
+  putUser: (data) => axiosInstance.put(endpoints.user, data),
+
   getAllUsers: () =>
     axiosInstance
       .get(endpoints.user)
