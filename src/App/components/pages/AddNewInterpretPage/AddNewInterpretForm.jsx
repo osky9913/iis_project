@@ -10,7 +10,6 @@ import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
-
 import { AddNewInterpretValidationSchema } from "./AddNewInterpretValidationSchema";
 import MaterialTable from "material-table";
 import Paper from "@material-ui/core/Paper";
