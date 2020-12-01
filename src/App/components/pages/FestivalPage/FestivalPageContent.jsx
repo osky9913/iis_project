@@ -141,51 +141,56 @@ const FestivalPageContent = (props) => {
         <List dense={true}>
           <Typography variant="h6">
             Interpreti
+            <div>
+              <Button variant="contained" onClick={() => {history.push("/edit-interpret-list-" + festivalData["id"])}}>
+                Edit
+              </Button>
+            </div>
             {festivalDataListOfInterprets.map((festival, index) => {
               return (
-                <ListItem key={index} divider={true}>
-                  <ListItemAvatar
-                    onClick={() =>
-                      history.push("/interpret-" + festival["interpret"]["id"])
-                    }
-                  >
-                    <Avatar
-                      alt="Remy Sharp"
-                      src={festival["interpret"]["logoUri"]}
+                  <ListItem key={index} divider={true}>
+                    <ListItemAvatar
+                        onClick={() =>
+                            history.push("/interpret-" + festival["interpret"]["id"])
+                        }
+                    >
+                      <Avatar
+                          alt="Remy Sharp"
+                          src={festival["interpret"]["logoUri"]}
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={festival["interpret"]["name"]}
+                        secondary={
+                          "Rating: " +
+                          festival["interpret"]["rating"] +
+                          ", Genre: " +
+                          festival["interpret"]["genre"]
+                        }
+                        onClick={() =>
+                            history.push("/interpret-" + festival["interpret"]["id"])
+                        }
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={festival["interpret"]["name"]}
-                    secondary={
-                      "Rating: " +
-                      festival["interpret"]["rating"] +
-                      ", Genre: " +
-                      festival["interpret"]["genre"]
-                    }
-                    onClick={() =>
-                      history.push("/interpret-" + festival["interpret"]["id"])
-                    }
-                  />
-                  {user["user"] ? (
-                    <div>
-                      {user["user"]["role"] === 0 ? (
-                        <ListItemSecondaryAction>
-                          <IconButton
-                            edge="end"
-                            aria-label="edit"
-                            onClick={() =>
-                              history.push(
-                                "/interpret-" + festival["interpret"]["id"]
-                              )
-                            }
-                          >
-                            <EditIcon />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </ListItem>
+                    {user["user"] ? (
+                        <div>
+                          {user["user"]["role"] === 0 ? (
+                              <ListItemSecondaryAction>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="edit"
+                                    onClick={() =>
+                                        history.push(
+                                            "/interpret-" + festival["interpret"]["id"]
+                                        )
+                                    }
+                                >
+                                  <EditIcon />
+                                </IconButton>
+                              </ListItemSecondaryAction>
+                          ) : null}
+                        </div>
+                    ) : null}
+                  </ListItem>
               );
             })}
           </Typography>

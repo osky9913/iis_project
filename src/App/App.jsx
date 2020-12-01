@@ -21,6 +21,7 @@ import RegistrationPage from "./components/pages/RegistrationPage/RegistrationPa
 import UsersSettings from "./components/layout/AppBar/DrawerMenu/UsersSettings/UsersSettings";
 import AddNewFestivalPage from "./components/pages/AddNewFestivalPage/AddNewFestivalPage";
 import AddNewInterpretPage from "./components/pages/AddNewInterpretPage/AddNewInterpretPage";
+import EditInterpretListInFestival from "./components/pages/EditInterpretListInFestival/EditIntepretListInFestival";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -118,6 +119,12 @@ const App = () => {
               <Route exact path="/new-registration">
                 <RegistrationPage />
               </Route>
+
+              <Route
+                exact
+                path="/edit-interpret-list-:festivalId"
+                children={<EditInterpretListInFestival />}
+              />
 
               <Route exact path="/admin-reservation">
                 <AdminReservationPage />
