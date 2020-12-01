@@ -68,20 +68,35 @@ const UserReservationPage = () => {
             icon: "clear",
             tooltip: "Zrus rezervaciu",
             onClick: (event, rowData) => {
+              /*
+              let tempData = rowData;
+              tempData["state"] = 3;
+              delete tempData["tableData"];
+              delete tempData["festivalName"];
+
+              tempData["description"] = "Rezervacia zrusena Vami";
+              console.log(tempData);
+              console.log(JSON.stringify(tempData));
+              axiosInstance
+                .put(endpoints.reservation, tempData)
+                .then((response) => {
+                  console.log("helloo", response);
+                });
+              */
+
               axiosInstance
                 .get(endpoints.reservation + "/" + rowData.id)
                 .then((res) => {
+                  console.log(res);
                   if (res.status === 200) {
                     let tempData = res.data;
-                    tempData["state"] = 3;
+                    tempData["state"] = 2;
                     tempData["description"] = "Rezervacia zrusena Vami";
-
+                    console.log(tempData);
+                    console.log(JSON.stringify(tempData));
                     axiosInstance
                       .put(endpoints.reservation, tempData)
-                      .then((helloWorld) =>
-                        console.log("helloo", helloWorld.status)
-                      );
-                    location.reload();
+                      .then((helloWorld) => location.reload());
                   }
                 });
             },

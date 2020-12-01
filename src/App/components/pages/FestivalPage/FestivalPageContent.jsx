@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import ListItem from "@material-ui/core/ListItem";
@@ -20,6 +20,8 @@ import { useHistory } from "react-router-dom";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import UserContext from "../../../../context/UserContext";
+import { axiosInstance } from "../../../../api/api";
+import { endpoints } from "../../../../api/apiConstants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,7 +72,43 @@ const FestivalPageContent = (props) => {
   const [reservationClickCount, setReservationClickCount] = useState(1);
   let history = useHistory();
   const { user } = useContext(UserContext);
-  const maxTicketCount = 10;
+  const [maxTicketCount, setMaxTicketCount] = useState(0);
+  console.log(festivalData);
+
+  const makeReservation = () => {
+    let data = {};
+    if (user["user"] && festivalData["id"]) {
+      data = {
+        state: 0,
+        tickets: reservationClickCount,
+        price: reservationClickCount * festivalData["price"],
+        description: "Vasa rezervacia je v progresse",
+        userId: user["user"]["id"],
+        festivalId: festivalData["id"],
+      };
+      axiosInstance.post(endpoints.reservation, data).then((res) => {
+        if (res.status === 200) {
+          location.reload();
+        }
+      });
+    } else {
+      data = {};
+    }
+  };
+
+  useEffect(() => {
+    if (festivalData) {
+      axiosInstance
+        .get("Festival/tickets/" + festivalData["id"])
+        .then((resposne) => {
+          if (resposne.status === 200) {
+            setMaxTicketCount(
+              festivalData["capacity"] - resposne.data["reservedTickets"]
+            );
+          }
+        });
+    }
+  }, [festivalData]);
 
   if (festivalDataListOfInterprets) {
     return (
@@ -87,19 +125,19 @@ const FestivalPageContent = (props) => {
           </Button>
 
           {user["user"] ? (
-              <div>
-                {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                          console.log("fuckYOu");
-                        }}
-                    >
-                      Editovať
-                    </Button>
-                ) : null}
-              </div>
+            <div>
+              {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    console.log("fuckYOu");
+                  }}
+                >
+                  Editovať
+                </Button>
+              ) : null}
+            </div>
           ) : null}
           <h1 style={{ textAlign: "center" }}>
             {festivalData["name"]} festival
@@ -247,8 +285,6 @@ const FestivalPageContent = (props) => {
           </Typography>
         </List>
 
-
-
         <div align={"left"}>
           <Typography gutterBottom={true} variant="h5">
             {festivalData["price"]}$
@@ -258,42 +294,65 @@ const FestivalPageContent = (props) => {
             Max {maxTicketCount} lístkov na objednávku
           </Typography>
         </div>
-
-
-
-
-        <div className={classes.buttons}>
-          <ButtonGroup
-            size="small"
-            aria-label="small outlined button group"
-            style={{ paddingRight: 30 }}
-          >
-            <Button
-              variant="contained"
-              onClick={() => {
-                if (reservationClickCount < maxTicketCount) {
-                  setReservationClickCount(reservationClickCount + 1);
-                }
-              }}
+        {maxTicketCount ? (
+          <div className={classes.buttons}>
+            <ButtonGroup
+              size="small"
+              aria-label="small outlined button group"
+              style={{ paddingRight: 30 }}
             >
-              +
-            </Button>
-            <Button>{reservationClickCount}</Button>
-            <Button
-              variant="contained"
-              onClick={() => {
-                if (reservationClickCount > 1) {
-                  setReservationClickCount(reservationClickCount - 1);
-                }
-              }}
-            >
-              -
-            </Button>
-          </ButtonGroup>
-          <Button variant="contained" color="primary">
-            Rezervovať
-          </Button>
-        </div>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (reservationClickCount > 1) {
+                    setReservationClickCount(reservationClickCount - 1);
+                  }
+                }}
+              >
+                -
+              </Button>
+              <Button>{reservationClickCount}</Button>
+
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (reservationClickCount < maxTicketCount) {
+                    setReservationClickCount(reservationClickCount + 1);
+                  }
+                }}
+              >
+                +
+              </Button>
+            </ButtonGroup>
+            {user["user"] ? (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => makeReservation()}
+              >
+                Rezervovať
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  history.push(
+                    "unregistered-festival-" +
+                      festivalData["id"] +
+                      "-count-" +
+                      reservationClickCount
+                  );
+                }}
+              >
+                Rezervovať
+              </Button>
+            )}
+            }
+          </div>
+        ) : (
+          <p>Vypredane</p>
+        )}
       </div>
     );
   } else {
