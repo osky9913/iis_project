@@ -24,6 +24,8 @@ import AddNewInterpretPage from "./components/pages/AddNewInterpretPage/AddNewIn
 import EditInterpretListInFestival from "./components/pages/EditInterpretListInFestival/EditIntepretListInFestival";
 import EditStageFestivalPage from "./components/pages/EditStageFestivalPage/EditStageFestivalPage";
 import EditStagePerformanceList from "./components/pages/EditStagePerformanceList/EditStagePerformanceList";
+import ReservationOfUnregisteredPage from "./components/pages/ReservationOfUnregisteredPage/ReservationOfUnregisteredPage";
+import RegistrationUnregistered from "./components/pages/ReservationOfUnregisteredPage/RegistrationUnregistered";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -151,9 +153,26 @@ const App = () => {
               />
 
               <Route
-                  exact
-                  path="/edit-stage-performance-list-:stageId"
-                  children={<EditStagePerformanceList />}
+                exact
+                path="/edit-stage-performance-list-:stageId"
+                children={<EditStagePerformanceList />}
+              />
+
+              <Route
+                exact
+                path={"/unregistered-festival-:festivalId-count-:countTickets"}
+                children={<ReservationOfUnregisteredPage />}
+              />
+
+              <Route
+                exact
+                path={"/unregistered-festival-:festivalId-count-:countTickets"}
+                children={<ReservationOfUnregisteredPage />}
+              />
+              <Route
+                exact
+                path={"/registration-unregistered-:id"}
+                children={<RegistrationUnregistered />}
               />
 
               <Route exact path="/register">

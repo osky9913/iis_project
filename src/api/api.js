@@ -53,6 +53,9 @@ export const api = {
     axiosInstance.defaults.headers.common["Authorization"] = "Bearer " + token;
     return axiosInstance.get(endpoints.validate);
   },
+  setToken: (token) => {
+    axiosInstance.defaults.headers.common["Authorization"] = "Bearer " + token;
+  },
   deleteTokenFromHeader: () =>
     (axiosInstance.defaults.headers.common["Authorization"] = ""),
   getFestivalByID: (ID) => axiosInstance.get(endpoints.festival + "/" + ID),

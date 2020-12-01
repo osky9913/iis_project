@@ -21,7 +21,7 @@ const ProfileSettingsAdminEdit = (props) => {
 
   const onSubmit = (data) => {
     data["id"] = props.id;
-    api.deleteTokenFromHeader();
+    api.set();
     api.putUser(JSON.stringify(data));
 
     if (data["role"] === 0 && user["user"]["id"] === data["id"]) {

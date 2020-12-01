@@ -363,7 +363,6 @@ const FestivalPageContent = (props) => {
                 Rezervovať
               </Button>
             )}
-            }
           </div>
         ) : (
           <p>Vypredane</p>
