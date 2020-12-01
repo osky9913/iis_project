@@ -180,14 +180,20 @@ const FestivalPageContent = (props) => {
           <Typography variant="h6">
             Interpreti
             <div>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  history.push("/edit-interpret-list-" + festivalData["id"]);
-                }}
-              >
-                Edit
-              </Button>
+              {user["user"] ? (
+                  <div>
+                    {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                        <Button
+                            variant="contained"
+                            onClick={() => {
+                              history.push("/edit-interpret-list-" + festivalData["id"]);
+                            }}
+                        >
+                          Edit
+                        </Button>
+                    ) : null}
+                  </div>
+              ) : null}
             </div>
             {festivalDataListOfInterprets.map((festival, index) => {
               return (
@@ -242,14 +248,20 @@ const FestivalPageContent = (props) => {
           <Typography variant="h6">
             <div>
               Stage
-              <Button
-                variant="contained"
-                onClick={() => {
-                  history.push("/edit-stage-list-" + festivalData["id"]);
-                }}
-              >
-                Edit
-              </Button>
+              {user["user"] ? (
+                  <div>
+                    {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                        <Button
+                            variant="contained"
+                            onClick={() => {
+                              history.push("/edit-stage-list-" + festivalData["id"]);
+                            }}
+                        >
+                          Edit
+                        </Button>
+                    ) : null}
+                  </div>
+              ) : null}
             </div>
             {festivalDataListOfStages.map((stage, index) => {
               return (
