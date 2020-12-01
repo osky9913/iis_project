@@ -59,6 +59,29 @@ const RegistrationForm = () => {
                 type="string"
                 control={control}
                 defaultValue=""
+                required
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CFormInput
+                  name="email"
+                  label="Email"
+                  errorobj={errors}
+                  type="string"
+                  control={control}
+                  defaultValue=""
+                  required
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CFormInput
+                  name="password"
+                  label="Heslo"
+                  errorobj={errors}
+                  type="password"
+                  control={control}
+                  defaultValue=""
+                  required
               />
             </Grid>
             <Grid item xs={6}>
@@ -83,16 +106,6 @@ const RegistrationForm = () => {
             </Grid>
             <Grid item xs={6}>
               <CFormInput
-                name="password"
-                label="Heslo"
-                errorobj={errors}
-                type="password"
-                control={control}
-                defaultValue=""
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CFormInput
                 name="city"
                 label="Mesto"
                 errorobj={errors}
@@ -105,16 +118,6 @@ const RegistrationForm = () => {
               <CFormInput
                 name="country"
                 label="Krajina"
-                errorobj={errors}
-                type="string"
-                control={control}
-                defaultValue=""
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CFormInput
-                name="email"
-                label="Email"
                 errorobj={errors}
                 type="string"
                 control={control}
