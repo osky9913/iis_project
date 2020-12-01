@@ -7,7 +7,7 @@ import ProfileSettingsForm from "./ProfileSettingsForm";
 import { CircularProgress } from "@material-ui/core";
 import { ProfileSettingsValidationSchema } from "./ProfileSettingsValidationSchema";
 import { api } from "../../../../../api/api";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -47,12 +47,12 @@ const ProfileSettings = () => {
           tempUser["role"] = data["role"];
           tempUser["street"] = data["street"];
           tempUser["password"] = data["password"];
-          setUser({ token: token, user: tempUser });
           localStorage.setItem("user", JSON.stringify(tempUser));
+          setUser({ token: token, user: tempUser });
+          location.reload();
         }
       })
       .catch((err) => console.error(err));
-    location.reload();
   };
 
   useEffect(() => {}, [user]);
@@ -60,7 +60,7 @@ const ProfileSettings = () => {
   if (user) {
     return (
       <div className={classes.root}>
-        <h1 style={{marginBottom: 10}}>Nastavenie účtu</h1>
+        <h1 style={{ marginBottom: 10 }}>Nastavenie účtu</h1>
         <ProfileSettingsForm
           errors={errors}
           control={control}

@@ -73,6 +73,7 @@ export default function ProfileSettingsForm(props) {
                 type="string"
                 control={control}
                 defaultValue=""
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -83,6 +84,7 @@ export default function ProfileSettingsForm(props) {
                 type="string"
                 control={control}
                 defaultValue=""
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -93,6 +95,7 @@ export default function ProfileSettingsForm(props) {
                 type="string"
                 control={control}
                 defaultValue=""
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -103,6 +106,7 @@ export default function ProfileSettingsForm(props) {
                 type="password"
                 control={control}
                 defaultValue=""
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -133,6 +137,7 @@ export default function ProfileSettingsForm(props) {
                 type="string"
                 control={control}
                 defaultValue=""
+                required
               />
             </Grid>
 

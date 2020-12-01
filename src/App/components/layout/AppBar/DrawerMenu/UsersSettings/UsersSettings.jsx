@@ -87,8 +87,10 @@ const UserSettings = () => {
                   const index = oldData.tableData.id;
                   dataDelete.splice(index, 1);
                   setData([...dataDelete]);
-                  axiosInstance.delete("/User/" + oldData.id);
-                  location.reload();
+                  api.deleteTokenFromHeader();
+                  axiosInstance.delete("/User/" + oldData.id).then((res) => {
+                    location.reload();
+                  });
                 }, 1000);
               }),
           }}
@@ -99,4 +101,5 @@ const UserSettings = () => {
     return <CircularProgress />;
   }
 };
+
 export default UserSettings;
