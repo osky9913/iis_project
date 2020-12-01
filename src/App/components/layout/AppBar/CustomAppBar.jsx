@@ -5,7 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
 import LoginDialog from "./LoginDialog/LoginDialog";
 import MenuIcon from "@material-ui/icons/Menu";
 import UserContext from "../../../../context/UserContext";
@@ -144,20 +143,12 @@ export default function CustomAppBar() {
             </IconButton>
           ) : null}
 
-          <IconButton
-            edge="end"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <SearchIcon />
-          </IconButton>
           {user["user"] ? null : (
             <Button
               color="inherit"
               onClick={() => history.push("/new-registration")}
             >
-              Registracia
+              Registrácia
             </Button>
           )}
 

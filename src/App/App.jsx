@@ -23,6 +23,7 @@ import AddNewFestivalPage from "./components/pages/AddNewFestivalPage/AddNewFest
 import AddNewInterpretPage from "./components/pages/AddNewInterpretPage/AddNewInterpretPage";
 import EditInterpretListInFestival from "./components/pages/EditInterpretListInFestival/EditIntepretListInFestival";
 import EditStageFestivalPage from "./components/pages/EditStageFestivalPage/EditStageFestivalPage";
+import EditStagePerformanceList from "./components/pages/EditStagePerformanceList/EditStagePerformanceList";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -147,6 +148,12 @@ const App = () => {
                 exact
                 path="/edit-stage-list-:festivalId"
                 children={<EditStageFestivalPage />}
+              />
+
+              <Route
+                  exact
+                  path="/edit-stage-performance-list-:stageId"
+                  children={<EditStagePerformanceList />}
               />
 
               <Route exact path="/register">
