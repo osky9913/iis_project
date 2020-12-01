@@ -24,99 +24,74 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function isNumeric(num) {
+  return !isNaN(num);
+}
+
 const EditStageFestivalPage = (props) => {
   const classes = useStyles();
 
-  const [interpretsData, setInterpretsData] = useState([]);
+  const [festivalData, setFestivalData] = useState([] | undefined);
+  const [
+    festivalDataListOfInterprets,
+    setFestivalDataListOfInterprets,
+  ] = useState([]);
+  const [festivalDataListOfStages, setFestivalDataListOfStages] = useState([]);
   const { festivalId } = useParams();
-  const [stages, setStages] = useState([]);
 
   useEffect(() => {
-    api.getStage().then((response) => {
-      let stages = [];
-      response.forEach((data) => {
-        let stage;
-        if (data["festival"] === null) {
-          stage = {
-            name: data["name"],
-            capacity: data["capacity"],
-            festival: "",
-            stageInterpret: data["stageInterpret"],
-            id: data["id"],
-          };
-        } else {
-          stage = {
-            name: data["name"],
-            capacity: data["capacity"],
-            festival: data["festival"],
-            stageInterpret: data["stageInterpret"],
-            id: data["id"],
-          };
-        }
-        stages.push(stage);
-      });
-
-      setStages(stages);
+    api.getFestivalByID(festivalId).then((response) => {
+      const data = response.data;
+      setFestivalData(data);
+      setFestivalDataListOfInterprets(data["festivalInterpret"]);
+      setFestivalDataListOfStages(data["stageList"]);
     });
   }, []);
 
-  console.log(stages);
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
       <MaterialTable
-        title="Pridat alebo odstranit intrepretov z festivalu"
+        title="Editovanie Stage"
         columns={[
-          { title: "Nazov stage", field: "name" },
-          { title: "Kapacita", field: "capacity" },
-          { title: "Festival", field: "capacity" },
-
-          { title: "Rating", field: "rating" },
+          {
+            title: "Nazov ",
+            field: "name",
+            validate: (rowData) =>
+              rowData.name === "" ? "Name cannot be empty" : "",
+          },
+          {
+            title: "Kapacita ",
+            field: "capacity",
+            validate: (rowData) =>
+              isNumeric(rowData.capacity) === false
+                ? "Capacity must be a number"
+                : "",
+          },
         ]}
-        data={stages}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise((resolve, reject) => {
+              if (newData)
+                setTimeout(() => {
+                  const data = {
+                    name: newData.name,
+                    capacity: newData.capacity,
+                    festivalId: festivalId,
+                  };
+                  axiosInstance.post(endpoints.stage, data);
+                  location.reload();
+                  resolve();
+                }, 1000);
+            }),
+        }}
+        data={festivalDataListOfStages}
         actions={[
           {
             icon: "clear",
             tooltip: "Zrus rezervaciu",
             onClick: (event, rowData) => {
-              axiosInstance
-                .get(endpoints.interpret + "/" + rowData.id)
-                .then((res) => {
-                  if (
-                    res.data["festivalInterpret"] === undefined ||
-                    res.data["festivalInterpret"].length === 0
-                  ) {
-                    alert("Interpret is not playin in festival");
-
-                    // interpret nema ziadny fest mozno ho hned pridavat do festivalu
-                  } else {
-                    // interpret uz ma festival,treba checkovat
-                    console.log("checking for collisions");
-                    let interpretIsInThisFestivalFlag = false;
-                    res.data["festivalInterpret"].forEach((item, index) => {
-                      if (item["festival"]["id"] === festivalId) {
-                        interpretIsInThisFestivalFlag = true;
-                      }
-                    });
-                    if (interpretIsInThisFestivalFlag === false) {
-                      alert("Interpret is not playin in festival");
-                    } else {
-                      axiosInstance
-                        .delete(
-                          "FestivalInterpret/" +
-                            festivalId +
-                            "/" +
-                            rowData["id"],
-                          {}
-                        )
-                        .then((resp) => {
-                          if (resp.status === 200) {
-                            location.reload();
-                          }
-                        });
-                    }
-                  }
-                });
+              console.log(rowData);
             },
           },
         ]}
