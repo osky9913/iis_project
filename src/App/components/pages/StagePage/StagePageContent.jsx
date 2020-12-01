@@ -128,6 +128,15 @@ const StagePageContent = (props) => {
                 <List dense={true}>
                     <Typography variant="h6">
                         Zoznam vystúpení
+                        {user["user"] ? (
+                            <div>
+                                {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                                    <Button variant="contained" onClick={() => {history.push("/edit-stage-performance-list-" + stageData["id"])}}>
+                                        Editovať
+                                    </Button>
+                                ) : null}
+                            </div>
+                        ) : null}
                         {stageDataListOfInterprets.map((interpret, index) => {
                             return (
                                 <ListItem key={index} divider={true}>
