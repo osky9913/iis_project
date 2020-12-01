@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import Typography from "@material-ui/core/Typography";
 import PeopleIcon from "@material-ui/icons/People";
 import List from "@material-ui/core/List";
@@ -18,6 +18,7 @@ import { useHistory } from "react-router-dom";
 import GradeIcon from "@material-ui/icons/Grade";
 import Button from "@material-ui/core/Button";
 import UserContext from "../../../../../context/UserContext";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,21 +70,21 @@ const InterpretPageContents = (props) => {
           >
             Späť
           </Button>
-            {user["user"] ? (
-                <div>
-                    {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                                console.log("fuckYOu");
-                            }}
-                        >
-                            Editovať
-                        </Button>
-                    ) : null}
-                </div>
-            ) : null}
+          {user["user"] ? (
+            <div>
+              {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    console.log("fuckYOu");
+                  }}
+                >
+                  Editovať
+                </Button>
+              ) : null}
+            </div>
+          ) : null}
           <h1 style={{ textAlign: "center" }}>{interpretData["name"]}</h1>
         </div>
         <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
@@ -158,23 +159,18 @@ const InterpretPageContents = (props) => {
                         history.push("/festival-" + festivals["festival"]["id"])
                     }
                   />
-                    {user["user"] ? (
-                        <div>
-                            {user["user"]["role"] === 0 ? (
-                                <ListItemSecondaryAction>
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="edit"
-                                        onClick={() =>
-                                            history.push("/festival-" + festivals["festival"]["id"])
-                                        }
-                                    >
-                                        <EditIcon />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
-                            ) : null}
-                        </div>
-                    ) : null}
+
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="edit"
+                      onClick={() =>
+                        history.push("/festival-" + festivals["festival"]["id"])
+                      }
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
                 </ListItem>
               );
             })}
@@ -211,25 +207,23 @@ const InterpretPageContents = (props) => {
                       )
                     }
                   />
-                    {user["user"] ? (
-                        <div>
-                            {user["user"]["role"] === 0 ? (
-                                <ListItemSecondaryAction>
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="edit"
-                                        onClick={() =>
-                                            history.push(
-                                                "/stage-" + interpretData["id"] + "/" + stage["stageId"]
-                                            )
-                                        }
-                                    >
-                                        <EditIcon />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
-                            ) : null}
-                        </div>
-                    ) : null}
+
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="edit"
+                      onClick={() =>
+                        history.push(
+                          "/stage-" +
+                            interpretData["id"] +
+                            "/" +
+                            stage["stageId"]
+                        )
+                      }
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
                 </ListItem>
               );
             })}
