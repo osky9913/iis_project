@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginDialogValidationSchema } from "./LoginDialogValidationSchema";
 import { userService } from "../../../../../services";
 import UserContext from "../../../../../context/UserContext";
+import { api } from "../../../../../api/api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -24,8 +25,13 @@ export default function AlertDialogSlide(props) {
   const { setUser } = useContext(UserContext);
 
   const onSubmit = (data) => {
-    userService.login(data, setUser);
-    props.handleClose();
+    api
+      .login(data)
+      .then((response) => {
+        userService.login(data, setUser);
+        props.handleClose();
+      })
+      .catch((err) => props.setError(true));
   };
 
   return (
@@ -61,6 +67,12 @@ export default function AlertDialogSlide(props) {
           Prihlásiť
         </Button>
       </DialogActions>
+      {props.error ? (
+        <p style={{ color: "red", marginLeft: "20px" }}>
+          {" "}
+          Prihlasenie sa nezdarilo
+        </p>
+      ) : null}
     </Dialog>
   );
 }

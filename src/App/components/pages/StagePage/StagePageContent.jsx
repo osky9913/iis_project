@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import ListItem from "@material-ui/core/ListItem";
@@ -9,7 +9,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
@@ -18,6 +17,8 @@ import {useHistory} from "react-router-dom";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import Button from "@material-ui/core/Button";
+import UserContext from "../../../../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -66,11 +67,37 @@ const StagePageContent = (props) => {
     const stageDataListOfInterprets = props.stageDataListOfInterprets
     const classes = useStyles()
     let history = useHistory();
+    const { user } = useContext(UserContext);
 
 
     if (stageData) {
         return (
             <div className={classes.root}>
+                <div>
+                    <Button variant="contained"
+                            onClick={() => {
+                                history.goBack()
+                            }}
+                            style={{marginRight: 10}}>
+                        Späť
+                    </Button>
+                    {user["user"] ? (
+                        <div>
+                            {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => {
+                                        console.log("fuckYOu");
+                                    }}
+                                >
+                                    Editovať
+                                </Button>
+                            ) : null}
+                        </div>
+                    ) : null}
+                    <h1 style={{textAlign: "center"}}>{stageData["name"]}</h1>
+                </div>
                 <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
                     <Link color="inherit" className={classes.link}>
                         <MusicNoteIcon className={classes.icon}/>
@@ -101,6 +128,15 @@ const StagePageContent = (props) => {
                 <List dense={true}>
                     <Typography variant="h6">
                         Zoznam vystúpení
+                        {user["user"] ? (
+                            <div>
+                                {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                                    <Button variant="contained" onClick={() => {history.push("/edit-stage-performance-list-" + stageData["id"])}}>
+                                        Editovať
+                                    </Button>
+                                ) : null}
+                            </div>
+                        ) : null}
                         {stageDataListOfInterprets.map((interpret, index) => {
                             return (
                                 <ListItem key={index} divider={true}>
@@ -115,14 +151,21 @@ const StagePageContent = (props) => {
                                         interpret["interpret"]["genre"]}
                                         onClick={() => history.push("/interpret-" + interpret["interpretId"])}
                                     />
-                                    <ListItemSecondaryAction>
-                                        <IconButton edge="end" aria-label="delete">
-                                            <DeleteIcon/>
-                                        </IconButton>
-                                        <IconButton edge="end" aria-label="edit">
-                                            <EditIcon/>
-                                        </IconButton>
-                                    </ListItemSecondaryAction>
+                                    {user["user"] ? (
+                                        <div>
+                                            {user["user"]["role"] === 0 ? (
+                                                <ListItemSecondaryAction>
+                                                    <IconButton
+                                                        edge="end"
+                                                        aria-label="edit"
+                                                        onClick={() => history.push("/interpret-" + interpret["interpretId"])}
+                                                    >
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </ListItemSecondaryAction>
+                                            ) : null}
+                                        </div>
+                                    ) : null}
                                 </ListItem>
                             );
                         })}

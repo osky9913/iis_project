@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MaterialTable from "material-table";
 import { api, axiosInstance } from "../../../../api/api";
 import { endpoints } from "../../../../api/apiConstants";
-import UserContext from "../../../../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,27 +22,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserReservationPage = () => {
-  const { user } = useContext(UserContext);
-
+const AdminReservationPage = () => {
   const classes = useStyles();
   const [reservationsData, setReservationsData] = useState([]);
 
   useEffect(() => {
-    if (user["user"]) {
-      axiosInstance
-        .get(endpoints.user + "/" + user["user"]["id"])
-        .then((response) =>
-          setReservationsData(response.data["reservationList"])
-        );
-    }
-  }, [user]);
+    api.getAllReservation().then((response) => setReservationsData(response));
+  }, []);
 
+  console.log(reservationsData);
+  //@todo preklad stavov
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
       <MaterialTable
-        title="Prehlad vasich rezervacii"
+        title="Prehlad vsetkych rezervacii"
         columns={[
           {
             title: "Stav",
@@ -65,38 +58,50 @@ const UserReservationPage = () => {
         data={reservationsData}
         actions={[
           {
-            icon: "clear",
-            tooltip: "Zrus rezervaciu",
+            icon: "check",
+            tooltip: "Potvrdit rezervaciu",
             onClick: (event, rowData) => {
-              /*
-              let tempData = rowData;
-              tempData["state"] = 3;
-              delete tempData["tableData"];
-              delete tempData["festivalName"];
-
-              tempData["description"] = "Rezervacia zrusena Vami";
-              console.log(tempData);
-              console.log(JSON.stringify(tempData));
-              axiosInstance
-                .put(endpoints.reservation, tempData)
-                .then((response) => {
-                  console.log("helloo", response);
-                });
-              */
               api.deleteTokenFromHeader();
+
               axiosInstance
                 .get(endpoints.reservation + "/" + rowData.id)
                 .then((res) => {
-                  console.log(res);
+                  if (res.status === 200) {
+                    let tempData = res.data;
+                    tempData["state"] = 1;
+                    tempData["description"] = "Rezervacia bola potvrdena";
+
+                    axiosInstance
+                      .put(endpoints.reservation, tempData)
+                      .then((helloWorld) =>
+                        console.log("helloo", helloWorld.status)
+                      );
+                    location.reload();
+                  }
+                });
+            },
+          },
+          {
+            icon: "clear",
+            tooltip: "Zrus rezervaciu",
+            onClick: (event, rowData) => {
+              api.deleteTokenFromHeader();
+
+              axiosInstance
+                .get(endpoints.reservation + "/" + rowData.id)
+                .then((res) => {
                   if (res.status === 200) {
                     let tempData = res.data;
                     tempData["state"] = 2;
-                    tempData["description"] = "Rezervacia zrusena Vami";
-                    console.log(tempData);
-                    console.log(JSON.stringify(tempData));
+                    tempData["description"] =
+                      "Rezervacia zrusena organizatormi";
+
                     axiosInstance
                       .put(endpoints.reservation, tempData)
-                      .then((helloWorld) => location.reload());
+                      .then((helloWorld) =>
+                        console.log("helloo", helloWorld.status)
+                      );
+                    location.reload();
                   }
                 });
             },
@@ -107,4 +112,4 @@ const UserReservationPage = () => {
   );
 };
 
-export default UserReservationPage;
+export default AdminReservationPage;

@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const ProfileSettingsValidationSchema = yup.object().shape({
+export const ProfileSettingsValidationSchemaAdminEdit = yup.object().shape({
   username: yup.string().required("username is Required").nullable(),
   name: yup.string().required("Name is Required").nullable(),
   surname: yup.string().required("surname is Required").nullable(),

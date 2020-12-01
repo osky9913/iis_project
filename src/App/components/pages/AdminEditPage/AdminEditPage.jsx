@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import ProfileSettings from "./ProfileSettings/ProfileSettings";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import UserContext from "../../../../context/UserContext";
+import { useParams } from "react-router-dom";
+
+import ProfileSettingsAdminEdit from "./ProfileSettingsAdminEdit";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -20,16 +20,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   adminPage: {
-    textAlign: "center",
-    width: "100%",
+    minWidth: "33%",
   },
 }));
 
-const SettingsPage = () => {
-  const { user } = useContext(UserContext);
-
+const AdminEditPage = () => {
   const classes = useStyles();
-  if (user["user"]) {
+  const id = useParams()["id"];
+
+  {
     return (
       <main className={classes.content}>
         <div className={classes.toolbar} />
@@ -43,17 +42,20 @@ const SettingsPage = () => {
           >
             <Grid item xs={4}>
               <Paper>
-                <ProfileSettings />
+                <ProfileSettingsAdminEdit id={id} />
               </Paper>
             </Grid>
-
           </Grid>
         </div>
       </main>
     );
-  } else {
-    return <CircularProgress />;
   }
 };
 
-export default SettingsPage;
+export default AdminEditPage;
+
+/*
+else {
+        return <CircularProgress />;
+    }
+ */

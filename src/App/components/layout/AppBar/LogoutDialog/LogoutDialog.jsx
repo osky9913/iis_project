@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 
 export default function LogoutDialog(props) {
   const classes = useStyles();
-  const { openLogoutDialog, handleLogoutClose } = props;
+  const { openLogoutDialog, handleLogoutClose, setError } = props;
   const { setUser } = useContext(UserContext);
   let history = useHistory();
 
@@ -35,6 +35,7 @@ export default function LogoutDialog(props) {
             api.deleteTokenFromHeader();
             setUser({ token: undefined, user: undefined });
             history.push("/");
+            setError(false);
           }}
         >
           Logout

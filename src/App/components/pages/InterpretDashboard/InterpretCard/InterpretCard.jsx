@@ -27,10 +27,10 @@ const useStyles = makeStyles({
 const FestivalCard = (props) => {
     const classes = useStyles();
     const interpret = props.interpret;
-    const interpretId = interpret["id"];
     let history = useHistory();
 
     if (interpret) {
+        const interpretId = interpret["id"];
         return (
             <div>
                 <React.Fragment>

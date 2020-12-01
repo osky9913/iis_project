@@ -11,6 +11,8 @@ export const axiosInstance = axios.create({
 });
 
 export const api = {
+  putUser: (data) => axiosInstance.put(endpoints.user, data),
+
   getAllUsers: () =>
     axiosInstance
       .get(endpoints.user)
@@ -33,7 +35,7 @@ export const api = {
       .get(endpoints.interpret)
       .then((res) => res.data)
       .catch((err) => console.error(err)),
-  getReservation: () =>
+  getAllReservation: () =>
     axiosInstance
       .get(endpoints.reservation)
       .then((res) => res.data)
@@ -51,6 +53,9 @@ export const api = {
     axiosInstance.defaults.headers.common["Authorization"] = "Bearer " + token;
     return axiosInstance.get(endpoints.validate);
   },
+  setToken: (token) => {
+    axiosInstance.defaults.headers.common["Authorization"] = "Bearer " + token;
+  },
   deleteTokenFromHeader: () =>
     (axiosInstance.defaults.headers.common["Authorization"] = ""),
   getFestivalByID: (ID) => axiosInstance.get(endpoints.festival + "/" + ID),
@@ -65,7 +70,7 @@ export const apiAll = () => {
       api.getFestival(),
       api.getInterpret(),
       api.getStage(),
-      api.getReservation(),
+      api.getAllReservation(),
     ])
     .then((respond) => {
       responses.push(respond);
