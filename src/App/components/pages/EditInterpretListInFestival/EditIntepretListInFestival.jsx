@@ -29,11 +29,55 @@ const EditInterpretListInFestival = (props) => {
 
   const [interpretsData, setInterpretsData] = useState([]);
   const { festivalId } = useParams();
+  const [festival, setFestival] = useState([]);
+
+  const isInterpretOnFestival = (id) => {
+    if (festival.length !== 0 && festival["festivalInterpret"]) {
+      let searchedInterpret = festival["festivalInterpret"].find(
+        (interpret) => interpret["interpret"]["id"] === id
+      );
+      if (searchedInterpret) {
+        return playing[1];
+      } else {
+        return playing[0];
+      }
+    }
+  };
+
+  const playing = {
+    0: "Nehra",
+    1: "Hra",
+  };
 
   useEffect(() => {
-    api.getInterpret().then((response) => setInterpretsData(response));
+    if (festival) {
+      api.getInterpret().then((response) => {
+        const dataInterprets = [];
+
+        response.forEach((data) => {
+          let tempData = {
+            name: data["name"],
+            logoUri: data["logoUri"],
+            rating: data["rating"],
+            genre: data["genre"],
+            id: data["id"],
+            playing: isInterpretOnFestival(data["id"]),
+          };
+          dataInterprets.push(tempData);
+        });
+
+        setInterpretsData(dataInterprets);
+      });
+    }
+  }, [festival]);
+
+  useEffect(() => {
+    api
+      .getFestivalByID(festivalId)
+      .then((response) => setFestival(response.data));
   }, []);
 
+  console.log(interpretsData);
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
@@ -51,6 +95,7 @@ const EditInterpretListInFestival = (props) => {
               />
             ),
           },
+          { title: " Hra na festivale", field: "playing" },
           { title: "Nazov interpreta", field: "name" },
           {
             title: "Genre",
@@ -71,7 +116,7 @@ const EditInterpretListInFestival = (props) => {
         actions={[
           {
             icon: "check",
-            tooltip: "Potvrdit rezervaciu",
+            tooltip: "Pridat interpreta",
             onClick: (event, rowData) => {
               axiosInstance
                 .get(endpoints.interpret + "/" + rowData.id)
@@ -80,6 +125,16 @@ const EditInterpretListInFestival = (props) => {
                     res.data["festivalInterpret"] === undefined ||
                     res.data["festivalInterpret"].length === 0
                   ) {
+                    axiosInstance
+                      .post("FestivalInterpret", {
+                        festivalId: festivalId,
+                        interpretId: rowData["id"],
+                      })
+                      .then((resp) => {
+                        if (resp.status === 200) {
+                          location.reload();
+                        }
+                      });
                     // interpret nema ziadny fest mozno ho hned pridavat do festivalu
                   } else {
                     // interpret uz ma festival,treba checkovat
@@ -89,18 +144,21 @@ const EditInterpretListInFestival = (props) => {
                       if (item["festival"]["id"] === festivalId) {
                         interpretIsInThisFestivalFlag = true;
                       }
-                    })
-                    if(interpretIsInThisFestivalFlag === false){
-                        console.log(
-                            "Interpret is not in this festival"
-                        );
+                    });
+                    if (interpretIsInThisFestivalFlag === false) {
+                      axiosInstance
+                        .post("FestivalInterpret", {
+                          festivalId: festivalId,
+                          interpretId: rowData["id"],
+                        })
+                        .then((resp) => {
+                          if (resp.status === 200) {
+                            location.reload();
+                          }
+                        });
+                    } else {
+                      alert("Interpret is already in");
                     }
-                  else{
-                        console.log(
-                            "Interpret is already in"
-                        );
-                    }
-                    ;
                   }
                 });
             },
@@ -109,7 +167,44 @@ const EditInterpretListInFestival = (props) => {
             icon: "clear",
             tooltip: "Zrus rezervaciu",
             onClick: (event, rowData) => {
-              console.log("remove");
+              axiosInstance
+                .get(endpoints.interpret + "/" + rowData.id)
+                .then((res) => {
+                  if (
+                    res.data["festivalInterpret"] === undefined ||
+                    res.data["festivalInterpret"].length === 0
+                  ) {
+                    alert("Interpret is not playin in festival");
+
+                    // interpret nema ziadny fest mozno ho hned pridavat do festivalu
+                  } else {
+                    // interpret uz ma festival,treba checkovat
+                    console.log("checking for collisions");
+                    let interpretIsInThisFestivalFlag = false;
+                    res.data["festivalInterpret"].forEach((item, index) => {
+                      if (item["festival"]["id"] === festivalId) {
+                        interpretIsInThisFestivalFlag = true;
+                      }
+                    });
+                    if (interpretIsInThisFestivalFlag === false) {
+                      alert("Interpret is not playin in festival");
+                    } else {
+                      axiosInstance
+                        .delete(
+                          "FestivalInterpret/" +
+                            festivalId +
+                            "/" +
+                            rowData["id"],
+                          {}
+                        )
+                        .then((resp) => {
+                          if (resp.status === 200) {
+                            location.reload();
+                          }
+                        });
+                    }
+                  }
+                });
             },
           },
         ]}
@@ -119,18 +214,3 @@ const EditInterpretListInFestival = (props) => {
 };
 
 export default EditInterpretListInFestival;
-/*
-if (
-                    rowData.data["festivalInterpret"] === undefined ||
-                    rowData.data["festivalInterpret"].length === 0
-                  ) {
-                    // interpret nema ziadny fest mozno ho hned pridavat do festivalu
-                  } else {
-                    // interpret uz ma festival,treba checkovat
-                    console.log(rowData.data["festivalInterpret"]);
-
-                    rowData.data["festivalInterpret"].forEach((item, index) => {
-                        console.log(item)
-                    });
-                  }
-* */
