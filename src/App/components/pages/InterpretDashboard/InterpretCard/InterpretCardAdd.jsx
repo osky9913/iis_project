@@ -5,13 +5,13 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
-
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
     minWidth: 200,
-      minHeight: 287,
+    minHeight: 287,
   },
   media: {
     height: 140,
@@ -23,16 +23,17 @@ const useStyles = makeStyles({
 
 const InterpretCardAdd = () => {
   const classes = useStyles();
-
+  let history = useHistory();
   return (
     <div>
       <React.Fragment>
-        <Card
-        >
-          <CardActionArea className={classes.root} onClick={() => console.log("addNewInterpret")}>
-            <CardContent style={{textAlign: "center"}}>
-              <AddIcon style={{width: "70px",
-                  height: "70px"}} />
+        <Card>
+          <CardActionArea
+            className={classes.root}
+            onClick={() => history.push("add-new-interpret")}
+          >
+            <CardContent style={{ textAlign: "center" }}>
+              <AddIcon style={{ width: "70px", height: "70px" }} />
               <Typography gutterBottom variant="h5" component="h2">
                 Add new interpret
               </Typography>

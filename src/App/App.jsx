@@ -20,6 +20,7 @@ import AdminReservationPage from "./components/pages/AdminReservationPage/AdminR
 import RegistrationPage from "./components/pages/RegistrationPage/RegistrationPage";
 import UsersSettings from "./components/layout/AppBar/DrawerMenu/UsersSettings/UsersSettings";
 import AddNewFestivalPage from "./components/pages/AddNewFestivalPage/AddNewFestivalPage";
+import AddNewInterpretPage from "./components/pages/AddNewInterpretPage/AddNewInterpretPage";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -128,6 +129,10 @@ const App = () => {
 
               <Route exact path={"/add-new-festival"}>
                 <AddNewFestivalPage />
+              </Route>
+
+              <Route exact path={"/add-new-interpret"}>
+                <AddNewInterpretPage />
               </Route>
 
               <Route exact path="/register">
