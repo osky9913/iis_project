@@ -10,13 +10,13 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import HeadsetMicIcon from '@material-ui/icons/HeadsetMic';
 import { useHistory } from "react-router-dom";
 import UserContext from "../../../../../context/UserContext";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import AccessibleForwardIcon from "@material-ui/icons/AccessibleForward";
 import PregnantWomanIcon from '@material-ui/icons/PregnantWoman';
+import NaturePeopleIcon from '@material-ui/icons/NaturePeople';
 
 const drawerWidth = 240;
 
@@ -89,9 +89,9 @@ export default function CustomDrawerMenu(props) {
             }}
           >
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index % 2 === 0 ? <NaturePeopleIcon /> : <HeadsetMicIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={text === "festivals" ? "Festivaly" : "Interpreti"} />
           </ListItem>
         ))}
 
@@ -107,7 +107,7 @@ export default function CustomDrawerMenu(props) {
             <ListItemIcon>
               <WatchLaterIcon />
             </ListItemIcon>
-            <ListItemText primary="my-reservation" />
+            <ListItemText primary="Moje rezervácie" />
           </ListItem>
         ) : null}
       </List>
@@ -128,7 +128,7 @@ export default function CustomDrawerMenu(props) {
                   <ListItemIcon>
                     <AccessibleForwardIcon />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary={"Správa rezervácii"} />
                 </ListItem>
               ))}
             </List>
@@ -152,7 +152,7 @@ export default function CustomDrawerMenu(props) {
                         <ListItemIcon>
                           <PregnantWomanIcon />
                         </ListItemIcon>
-                        <ListItemText primary={text} />
+                        <ListItemText primary={"Správa užívateľov"} />
                       </ListItem>
                   ))}
                 </List>
