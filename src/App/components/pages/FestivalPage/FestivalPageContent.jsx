@@ -22,6 +22,7 @@ import Link from "@material-ui/core/Link";
 import UserContext from "../../../../context/UserContext";
 import { axiosInstance } from "../../../../api/api";
 import { endpoints } from "../../../../api/apiConstants";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -181,18 +182,20 @@ const FestivalPageContent = (props) => {
             Interpreti
             <div>
               {user["user"] ? (
-                  <div>
-                    {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
-                        <Button
-                            variant="contained"
-                            onClick={() => {
-                              history.push("/edit-interpret-list-" + festivalData["id"]);
-                            }}
-                        >
-                          Edit
-                        </Button>
-                    ) : null}
-                  </div>
+                <div>
+                  {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        history.push(
+                          "/edit-interpret-list-" + festivalData["id"]
+                        );
+                      }}
+                    >
+                      Edit
+                    </Button>
+                  ) : null}
+                </div>
               ) : null}
             </div>
             {festivalDataListOfInterprets.map((festival, index) => {
@@ -220,25 +223,20 @@ const FestivalPageContent = (props) => {
                       history.push("/interpret-" + festival["interpret"]["id"])
                     }
                   />
-                  {user["user"] ? (
-                    <div>
-                      {user["user"]["role"] === 0 ? (
-                        <ListItemSecondaryAction>
-                          <IconButton
-                            edge="end"
-                            aria-label="edit"
-                            onClick={() =>
-                              history.push(
-                                "/interpret-" + festival["interpret"]["id"]
-                              )
-                            }
-                          >
-                            <EditIcon />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      ) : null}
-                    </div>
-                  ) : null}
+
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="edit"
+                      onClick={() =>
+                        history.push(
+                          "/interpret-" + festival["interpret"]["id"]
+                        )
+                      }
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
                 </ListItem>
               );
             })}
@@ -249,18 +247,18 @@ const FestivalPageContent = (props) => {
             <div>
               Stage
               {user["user"] ? (
-                  <div>
-                    {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
-                        <Button
-                            variant="contained"
-                            onClick={() => {
-                              history.push("/edit-stage-list-" + festivalData["id"]);
-                            }}
-                        >
-                          Edit
-                        </Button>
-                    ) : null}
-                  </div>
+                <div>
+                  {user["user"]["role"] === 0 || user["user"]["role"] === 1 ? (
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        history.push("/edit-stage-list-" + festivalData["id"]);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                  ) : null}
+                </div>
               ) : null}
             </div>
             {festivalDataListOfStages.map((stage, index) => {
@@ -284,28 +282,20 @@ const FestivalPageContent = (props) => {
                       )
                     }
                   />
-                  {user["user"] ? (
-                    <div>
-                      {user["user"]["role"] === 0 ? (
-                        <ListItemSecondaryAction>
-                          <IconButton
-                            edge="end"
-                            aria-label="edit"
-                            onClick={() =>
-                              history.push(
-                                "/stage-" +
-                                  festivalData["id"] +
-                                  "/" +
-                                  stage["id"]
-                              )
-                            }
-                          >
-                            <EditIcon />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      ) : null}
-                    </div>
-                  ) : null}
+
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="edit"
+                      onClick={() =>
+                        history.push(
+                          "/stage-" + festivalData["id"] + "/" + stage["id"]
+                        )
+                      }
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
                 </ListItem>
               );
             })}
