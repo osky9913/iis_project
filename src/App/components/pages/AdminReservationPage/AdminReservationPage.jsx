@@ -61,6 +61,8 @@ const AdminReservationPage = () => {
             icon: "check",
             tooltip: "Potvrdit rezervaciu",
             onClick: (event, rowData) => {
+              api.deleteTokenFromHeader();
+
               axiosInstance
                 .get(endpoints.reservation + "/" + rowData.id)
                 .then((res) => {
@@ -83,6 +85,8 @@ const AdminReservationPage = () => {
             icon: "clear",
             tooltip: "Zrus rezervaciu",
             onClick: (event, rowData) => {
+              api.deleteTokenFromHeader();
+
               axiosInstance
                 .get(endpoints.reservation + "/" + rowData.id)
                 .then((res) => {

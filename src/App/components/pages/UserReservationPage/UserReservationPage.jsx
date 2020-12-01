@@ -83,7 +83,7 @@ const UserReservationPage = () => {
                   console.log("helloo", response);
                 });
               */
-
+              api.deleteTokenFromHeader();
               axiosInstance
                 .get(endpoints.reservation + "/" + rowData.id)
                 .then((res) => {
