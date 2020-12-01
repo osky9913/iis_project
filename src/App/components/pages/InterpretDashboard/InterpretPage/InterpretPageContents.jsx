@@ -48,6 +48,15 @@ const InterpretPageContents = (props) => {
   let history = useHistory();
   const { user } = useContext(UserContext);
 
+    const genre = {
+        0: "Rock",
+        1: "Pop",
+        2: "Metal",
+        3: "HipHop",
+        4: "Emd",
+        5: "Chill",
+    };
+
   if (interpretData) {
     return (
       <div className={classes.root}>
@@ -85,7 +94,7 @@ const InterpretPageContents = (props) => {
             className={classes.link}
           >
             <PeopleIcon className={classes.icon} />
-            {interpretData["genre"]}
+            {genre[interpretData["genre"]]}
           </Link>
           <Link
             color="inherit"
@@ -101,11 +110,9 @@ const InterpretPageContents = (props) => {
           align={"justify"}
           paragraph={true}
           gutterBottom={true}
+          style={{textAlign: "center"}}
         >
-          body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-          blanditiis tenetur unde suscipit, quam beatae rerum inventore
-          consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-          fugiat deleniti? Eum quasi quidem quibusdam.
+            {interpretData["description"]}
         </Typography>
         <Divider variant={"middle"} />
         <List dense={true}>
@@ -149,7 +156,7 @@ const InterpretPageContents = (props) => {
                       festivals["festival"]["city"]
                     }
                     onClick={() =>
-                      history.push("/festival-" + festivals["festival"]["id"])
+                        history.push("/festival-" + festivals["festival"]["id"])
                     }
                   />
 

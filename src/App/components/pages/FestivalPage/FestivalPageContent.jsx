@@ -152,9 +152,6 @@ const FestivalPageContent = (props) => {
           <Link
             color="inherit"
             className={classes.link}
-            onClick={() =>
-              window.open("https://goo.gl/maps/LD1JC4g4WNXtp13s5", "_blank")
-            }
           >
             <PlaceIcon className={classes.icon} />
             {festivalData["street"]}, {festivalData["city"]},{" "}
@@ -170,11 +167,9 @@ const FestivalPageContent = (props) => {
           align={"justify"}
           paragraph={true}
           gutterBottom={true}
+          style={{textAlign: "center"}}
         >
-          body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-          blanditiis tenetur unde suscipit, quam beatae rerum inventore
-          consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-          fugiat deleniti? Eum quasi quidem quibusdam.
+          {festivalData["description"]}
         </Typography>
         <Divider variant={"middle"} />
         <List dense={true}>
